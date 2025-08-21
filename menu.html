@@ -23,14 +23,14 @@
       user-select: text;
     }
     :root {
-      --primary-color: #C48F3A;
-      --primary-dark: #9C6F2D;
-      --secondary-color: #FFF8F0;
-      --accent-color: #E6B85C;
-      --text-color: #4A3C31;
-      --light-bg: #FDF8F1;
-      --card-shadow: 0 10px 20px rgba(196, 143, 58, 0.1);
-      --hover-shadow: 0 15px 30px rgba(196, 143, 58, 0.2);
+      --primary-color: #ff0000; /* Rojo para elementos principales */
+      --primary-dark: #b30000;  /* Rojo oscuro para hover */
+      --secondary-color: #111111; /* Fondo negro */
+      --accent-color: #ff0000; /* Rojo para acentos */
+      --text-color: #ffffff; /* Blanco para texto */
+      --light-bg: #000000; /* Fondo negro profundo */
+      --card-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+      --hover-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
     }
     
     /* Scrollbar super fino y con colores de la paleta */
@@ -62,9 +62,9 @@
     }
     
     body {
-      background: linear-gradient(135deg, var(--secondary-color) 0%, var(--light-bg) 100%);
+      background: var(--secondary-color) !important;
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      color: var(--text-color);
+      color: var(--text-color) !important;
       height: 100%;
       min-height: 100%;
       width: 100vw;
@@ -90,9 +90,9 @@
     
     /* Header fijo */
     .menu-header {
-      background: rgba(255, 248, 240, 0.97);
+      background: #000 !important;
       padding: 1rem 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(255,0,0,0.10);
       border-radius: 0 0 16px 16px;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -114,7 +114,7 @@
     .menu-title {
       font-size: 1.8rem;
       font-weight: 700;
-      color: var(--primary-color);
+      color: #fff !important;
       margin-bottom: 0;
       text-align: center;
       position: relative;
@@ -129,23 +129,23 @@
       transform: translateX(-50%);
       width: 2.5rem;
       height: 0.2rem;
-      background: var(--accent-color);
+      background: var(--primary-color);
       border-radius: 3px;
     }
     
     /* Panel de categoría fijo */
     .category-header-panel {
-      background: rgba(255, 248, 240, 0.95);
+      background: #000 !important;
       padding: 0.8rem 1rem;
       font-weight: 700;
-      color: var(--primary-dark);
-      border-bottom: 2px dashed rgba(196, 143, 58, 0.2);
+      color: #fff !important;
+      border-bottom: 2px dashed var(--primary-color);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(255,0,0,0.10);
       min-height: 3.5rem;
     }
     
@@ -233,8 +233,9 @@
       margin-bottom: 1.5rem;
       box-shadow: var(--card-shadow);
       transition: all 0.4s ease;
-      background: white;
-      border: 1px solid rgba(196, 143, 58, 0.1);
+      background: #111;
+      border: 1px solid var(--primary-color);
+      color: #fff;
     }
     
     .category-card:hover {
@@ -244,12 +245,13 @@
     
     .product-item {
       padding: 1rem 1.25rem;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid var(--primary-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: all 0.3s ease;
       position: relative;
+      color: #fff;
     }
     
     .product-item:last-child {
@@ -257,7 +259,7 @@
     }
     
     .product-item:hover {
-      background-color: rgba(230, 184, 92, 0.08);
+      background-color: #222;
       padding-left: 1.5rem;
     }
     
@@ -268,7 +270,7 @@
       top: 0;
       height: 100%;
       width: 0.25rem;
-      background: var(--accent-color);
+      background: var(--primary-color);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -278,10 +280,10 @@
     }
     
     .product-price {
-      color: var(--primary-dark);
+      color: #fff;
       font-weight: 700;
       white-space: nowrap;
-      background: rgba(196, 143, 58, 0.1);
+      background: var(--primary-color);
       padding: 0.25rem 0.6rem;
       border-radius: 1.25rem;
       font-size: 0.9rem;
@@ -289,7 +291,7 @@
     }
     
     .product-item:hover .product-price {
-      background: rgba(196, 143, 58, 0.2);
+      background: var(--primary-dark);
       transform: scale(1.05);
     }
     
@@ -299,9 +301,9 @@
       justify-content: center;
       align-items: center;
       gap: 0.7rem;
-      background: rgba(255, 248, 240, 0.97);
+      background: #000 !important;
       padding: 0.5rem 0.2rem 0.7rem 0.2rem;
-      box-shadow: 0 -2px 12px rgba(196,143,58,0.10);
+      box-shadow: 0 -2px 12px rgba(255,0,0,0.10);
       border-top-left-radius: 1rem;
       border-top-right-radius: 1rem;
       z-index: 1200;
@@ -325,7 +327,7 @@
       font-size: 1.15rem;
       cursor: pointer;
       transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-      box-shadow: 0 2px 6px rgba(196,143,58,0.13);
+      box-shadow: 0 2px 6px rgba(255,0,0,0.13);
       outline: none;
       user-select: none;
       touch-action: manipulation;
@@ -338,7 +340,7 @@
     }
     .slider-arrow:active, .slider-arrow:focus {
       background: var(--primary-dark);
-      box-shadow: 0 2px 10px rgba(196,143,58,0.18);
+      box-shadow: 0 2px 10px rgba(255,0,0,0.18);
       transform: scale(1.08);
     }
     
@@ -348,7 +350,7 @@
     }
     
     .slider-arrow:disabled {
-      background: #e0d2b8;
+      background: #333;
       color: #fff;
       cursor: not-allowed;
       opacity: 0.5;
@@ -423,7 +425,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(196, 143, 58, 0.4);
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
       z-index: 100;
       opacity: 0;
       visibility: hidden;
@@ -449,12 +451,12 @@
       width: 3.25rem;
       height: 3.25rem;
       border-radius: 50%;
-      background: linear-gradient(135deg, #C48F3A 60%, #E6B85C 100%);
+      background: var(--primary-color);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px rgba(196,143,58,0.25);
+      box-shadow: 0 6px 18px rgba(255,0,0,0.25);
       font-size: 1.7rem;
       z-index: 9999;
       border: none;
@@ -464,10 +466,10 @@
     }
     
     .fidelidad-btn-top:hover {
-      background: linear-gradient(135deg, #9C6F2D 60%, #C48F3A 100%);
+      background: var(--primary-dark);
       color: #fff;
       transform: scale(1.08) rotate(-6deg);
-      box-shadow: 0 10px 24px rgba(196,143,58,0.35);
+      box-shadow: 0 10px 24px rgba(255,0,0,0.35);
     }
     
     /* Mejoras para móviles */
@@ -684,13 +686,45 @@
             updateSlider();
           }
         };
-        
         document.getElementById('sliderNext').onclick = () => {
           if (currentSlide < slides.length - 1) {
             currentSlide++;
             updateSlider();
           }
         };
+
+        // Swipe horizontal en móviles para cambiar de categoría una por una
+        let touchStartX = null;
+        let touchEndX = null;
+        const minSwipeDistance = 50; // px
+        slider.addEventListener('touchstart', function(e) {
+          if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+          }
+        });
+        slider.addEventListener('touchmove', function(e) {
+          if (e.touches.length === 1) {
+            touchEndX = e.touches[0].clientX;
+          }
+        });
+        slider.addEventListener('touchend', function(e) {
+          if (touchStartX !== null && touchEndX !== null) {
+            const diffX = touchEndX - touchStartX;
+            if (Math.abs(diffX) > minSwipeDistance) {
+              if (diffX < 0 && currentSlide < slides.length - 1) {
+                // Swipe izquierda: siguiente categoría
+                currentSlide++;
+                updateSlider();
+              } else if (diffX > 0 && currentSlide > 0) {
+                // Swipe derecha: categoría anterior
+                currentSlide--;
+                updateSlider();
+              }
+            }
+          }
+          touchStartX = null;
+          touchEndX = null;
+        });
         
         // Inicializar slider
         updateSlider();
