@@ -157,12 +157,12 @@ app.post('/agregarSello', (req, res) => {
   const usuario = datos.usuarios.find(u => u.id === id);
   if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
   if (typeof usuario.sellos !== 'number') usuario.sellos = 0;
-  if (usuario.sellos >= 10) {
+  if (usuario.sellos >= 9 ) {
     return res.status(400).json({ error: 'Ya tiene el máximo de sellos' });
   }
   usuario.sellos++;
-  // Si el usuario llega a 10 sellos y no tiene premio asignado, asigna uno al azar
-  if (usuario.sellos >= 10 && !usuario.premio) {
+  // Si el usuario llega a 9 sellos y no tiene premio asignado, asigna uno al azar
+  if (usuario.sellos >= 9 && !usuario.premio) {
     const premiosDisponibles = (datos.premios || []).filter(p => !p.canjeado);
     if (premiosDisponibles.length > 0) {
       const premioAzar = premiosDisponibles[Math.floor(Math.random() * premiosDisponibles.length)];

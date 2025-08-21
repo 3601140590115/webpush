@@ -700,14 +700,14 @@
         }
         usuarios.forEach(u => {
           const premio = u.premio ? premios.find(p => p.id === u.premio) : null;
-          const disabled = u.sellos >= 10 ? 'disabled' : '';
+          const disabled = u.sellos >= 9 ? 'disabled' : '';
           const userDiv = document.createElement('div');
           userDiv.className = 'user-card';
           userDiv.id = 'user-' + u.id;
           userDiv.innerHTML = `
             <div class="d-flex align-items-center gap-2 flex-1">
               <strong class="text-truncate" style="max-width: 120px;">${u.nombre}</strong>
-              <span class="stamp-count">${u.sellos || 0}/10</span>
+              <span class="stamp-count">${u.sellos || 0}/9</span>
             </div>
             <div class="d-flex align-items-center gap-1 user-actions">
               ${premio ? `<span class="badge-premio">${premio.nombre}</span>` : ''}
@@ -769,7 +769,7 @@
           const countSpan = usuarioDiv.querySelector('.stamp-count');
           if (countSpan) {
             const actual = parseInt(countSpan.textContent.split('/')[0], 10);
-            if (actual >= 10) return; // No enviar petición si ya tiene el máximo
+            if (actual >= 9) return; // No enviar petición si ya tiene el máximo
           }
         }
         await fetch('/agregarSello', {

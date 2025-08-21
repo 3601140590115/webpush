@@ -10,17 +10,18 @@
     <link rel="manifest" href="manifest.json">
     <style>
         :root {
-            --primary-color: #E6B85C;
-            --primary-dark: #C48F3A;
-            --secondary-color: #4A3C31;
-            --light-bg: #FFF8F0;
-            --card-bg: #FFFFFF;
-            --accent-color: #FF7E5F;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
-            --border-radius: 16px;
+            --primary-color: #ff0000;
+            --primary-dark: #b30000;
+            --secondary-color: #ffffff;
+            --light-bg: #000000;
+            --card-bg: #111111;
+            --accent-color: #ff0000;
+            --shadow-sm: 0 0.3vw 1vw rgba(255,0,0,0.08);
+            --shadow-md: 0 0.6vw 1.5vw rgba(255,0,0,0.12);
+            --shadow-lg: 0 1vw 3vw rgba(255,0,0,0.15);
+            --border-radius: 2vw;
             --transition: all 0.3s ease;
+            --stamp-size: 7vw;
         }
 
         * {
@@ -30,80 +31,90 @@
         }
 
         body {
-            background: var(--light-bg);
+            background: var(--light-bg) !important;
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            color: var(--secondary-color);
+            color: var(--secondary-color) !important;
             line-height: 1.6;
             min-height: 100vh;
+            min-width: 100vw;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px;
+            padding: 2vw;
         }
 
         .container {
-            max-width: 500px;
-            width: 100%;
+            width: 90vw;
+            height: 96vh;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 2vw;
         }
 
         .btn-menu {
             background: var(--primary-color);
-            color: var(--secondary-color);
+            color: #fff !important;
             font-weight: 600;
-            border-radius: 12px;
-            padding: 12px 20px;
+            border-radius: 1vw;
+            padding: 1.2vw 2vw;
             box-shadow: var(--shadow-sm);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 1vw;
             transition: var(--transition);
+            font-size: 1.2em;
         }
 
         .btn-menu:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
+            background: var(--primary-dark);
         }
 
         .page-title {
             font-weight: 800;
-            color: var(--secondary-color);
+            color: #fff !important;
             text-align: center;
-            margin-bottom: 24px;
-            font-size: 28px;
+            margin-bottom: 2vw;
+            font-size: 4vw;
             position: relative;
         }
 
         .page-title:after {
             content: '';
             position: absolute;
-            bottom: -12px;
+            bottom: -1vw;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
+            width: 8vw;
+            height: 0.5vw;
+            background: var(--primary-color);
+            border-radius: 1vw;
         }
 
         .welcome-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 24px;
+            padding: 2vw;
+            margin-bottom: 2vw;
             box-shadow: var(--shadow-sm);
             position: relative;
             cursor: pointer;
             transition: var(--transition);
-            border: 1px solid rgba(230, 184, 92, 0.2);
+            border: 0.2vw solid var(--primary-color);
+            color: #fff;
+            font-size: 1.2em;
         }
 
         .welcome-card:hover {
@@ -118,16 +129,16 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            background: var(--primary-color);
             border-radius: var(--border-radius) var(--border-radius) 0 0;
         }
 
         .welcome-text {
             text-align: center;
-            font-size: 18px;
+            font-size: 2vw;
             font-weight: 500;
-            color: var(--primary-dark);
-            margin-bottom: 16px;
+            color: #fff !important;
+            margin-bottom: 1vw;
             word-break: break-word;
         }
 
@@ -138,33 +149,34 @@
         }
 
         .qr-mini canvas {
-            width: 80px !important;
-            height: 80px !important;
-            border: 1px solid #f0f0f0;
-            border-radius: 8px;
-            padding: 8px;
-            background: white;
+            width: 8vw !important;
+            height: 8vw !important;
+            border: 0.2vw solid var(--primary-color);
+            border-radius: 1vw;
+            padding: 1vw;
+            background: #111;
         }
 
         .qr-hint {
             text-align: center;
-            font-size: 12px;
-            color: #888;
-            margin-top: 8px;
+            color: #ff0000;
+            margin-top: 0.5vw;
+            /* Hereda font-size y font-weight del contenedor */
         }
 
         .card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 24px 20px;
+            padding: 2vw 2vw;
             box-shadow: var(--shadow-sm);
-            margin-bottom: 24px;
+            margin-bottom: 2vw;
             position: relative;
             overflow: hidden;
             transition: var(--transition);
-            min-height: 300px;
             display: flex;
             flex-direction: column;
+            color: #fff;
+            font-size: 1.2em;
         }
 
         .card::before {
@@ -174,7 +186,7 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            background: var(--primary-color);
         }
 
         .card:hover {
@@ -187,37 +199,46 @@
         }
 
         .progress {
-            height: 10px;
-            border-radius: 10px;
-            background: #f0e6d6;
+            height: 1vw;
+            border-radius: 1vw;
+            background: #222;
             overflow: hidden;
-            margin-bottom: 8px;
+            margin-bottom: 0.5vw;
         }
 
         .progress-bar {
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            background: var(--primary-color);
             transition: width 0.5s ease;
         }
 
         .progress-labels {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
-            color: var(--secondary-color);
+            font-size: 1vw;
+            color: #fff;
         }
 
         .stamps-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 20px 0;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 0;
+            margin: 2vw auto;
+            width: 98vw;
+            max-width: 480px;
+            height: auto;
+            aspect-ratio: 1/1;
+            background: #181818;
+            border-radius: 2vw;
+            border: 2px dashed var(--primary-color);
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
         .stamp {
             aspect-ratio: 1;
-            border: 2px dashed var(--primary-color);
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.8);
+            background: none;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -226,53 +247,75 @@
         }
 
         .stamp.collected {
-            background: var(--primary-color);
-            border: 2px solid var(--primary-dark);
+            background: none;
+            border: none;
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(216, 164, 94, 0.3);
+            box-shadow: 0 0.5vw 1vw rgba(255,0,0,0.3);
         }
 
         .stamp.collected::after {
             content: '✓';
             position: absolute;
-            bottom: -5px;
-            right: -5px;
-            background: var(--accent-color);
-            color: white;
-            width: 20px;
-            height: 20px;
+            bottom: -1vw;
+            right: -1vw;
+            background: var(--primary-color);
+            color: #fff;
+            width: 2vw;
+            height: 2vw;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            border: 2px solid white;
+            font-size: 1vw;
+            border: 0.2vw solid #fff;
         }
 
         .stamp-img {
-            width: 70%;
-            height: 70%;
+            width: 92%;
+            height: 92%;
             object-fit: contain;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            display: block;
+            margin: auto;
+            box-sizing: border-box;
+        }
+
+        .stamp-empty {
+            width: 86%;
+            height: 86%;
+            margin: auto;
+            border-radius: 50%;
+            border: 2.5px dashed #ff0000;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
 
         .reward-container {
             text-align: center;
-            padding: 24px 16px;
-            background: linear-gradient(135deg, rgba(230, 184, 92, 0.15), rgba(255, 126, 95, 0.15));
-            border-radius: 12px;
-            border: 2px solid var(--primary-color);
+            padding: 2vw 1vw;
+            background: #111;
+            border-radius: 1vw;
+            border: 0.2vw solid var(--primary-color);
             animation: fadeIn 0.5s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+            color: #fff;
+            font-size: 1.2em;
         }
 
         .reward-badge {
-            font-size: 80px;
+            font-size: 8vw;
             color: var(--primary-color);
-            margin-bottom: 16px;
+            margin-bottom: 1vw;
             animation: pulse 1.5s infinite;
         }
 
@@ -283,25 +326,25 @@
         }
 
         .reward-title {
-            color: var(--primary-dark);
-            margin-bottom: 12px;
+            color: #fff !important;
+            margin-bottom: 1vw;
             font-weight: 700;
-            font-size: 24px;
+            font-size: 2vw;
         }
 
         .reward-message {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
+            font-size: 1.5vw;
+            margin-bottom: 1vw;
+            color: #fff;
         }
 
         .reward-action {
-            margin-top: 16px;
+            margin-top: 1vw;
             background: var(--primary-color);
-            color: white;
+            color: #fff;
             border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
+            border-radius: 1vw;
+            padding: 1vw 2vw;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -340,14 +383,16 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 24px;
+            padding: 2vw;
             text-align: center;
             position: relative;
             max-width: 90vw;
             transform: scale(0.9);
             transition: transform 0.3s ease;
+            color: #fff;
+            font-size: 1.2em;
         }
 
         .modal-overlay.active .modal-content {
@@ -374,8 +419,9 @@
         }
 
         .modal-title {
-            margin-bottom: 16px;
-            color: var(--secondary-color);
+            margin-bottom: 1vw;
+            color: #fff;
+            font-size: 2vw;
         }
 
         .modal-qr {
@@ -393,7 +439,7 @@
 
         .user-name {
             font-weight: 600;
-            color: var(--primary-dark);
+            color: #fff;
         }
 
         /* Responsive */
@@ -411,7 +457,11 @@
             }
             
             .stamps-grid {
-                gap: 8px;
+                gap: 10px;
+            }
+            .stamp-img {
+                width: 18vw;
+                height: 18vw;
             }
             
             .card {
@@ -434,8 +484,12 @@
 
         @media (max-width: 400px) {
             .stamps-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 6px;
+            }
+            .stamp-img {
+                width: 22vw;
+                height: 22vw;
             }
             
             .welcome-text {
@@ -454,29 +508,32 @@
         </div>
 
         <h1 class="page-title">Tarjeta de Fidelidad</h1>
-
         <div class="welcome-card" id="welcome-card">
-            <div class="welcome-text">Bienvenido, <span id="nombreUsuario"></span></div>
-            <div class="qr-mini">
-                <canvas id="qrMini"></canvas>
+            <div class="welcome-text" style="text-align:center;">Bienvenido, <span id="nombreUsuario"></span></div>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 2vw; width: 100%; margin-top: 1vw;">
+                <div class="qr-mini" style="margin: 0;">
+                    <canvas id="qrMini"></canvas>
+                </div>
+                <h6 class="qr-hint" style="margin: 0;">Toca para ver QR en pantalla completa</h6>
             </div>
-            <div class="qr-hint">Toca para ver QR en pantalla completa</div>
         </div>
-
         <div class="card">
             <div class="progress-container">
                 <div class="progress">
                     <div id="progreso" class="progress-bar" role="progressbar" style="width: 0%"></div>
                 </div>
                 <div class="progress-labels">
-                    <span id="contador-sellos">0 sellos</span>
-                    <span id="meta-sellos">10 sellos</span>
+                    <h4 id="contador-sellos">0 sellos</h4>
+                    <h4 id="meta-sellos">10 sellos</h4>
                 </div>
             </div>
-
-            <div id="card-content">
-                <!-- Aquí se alternará entre sellos y premio -->
+            <div id="card-content" style="min-height:12vw;display:flex;align-items:center;justify-content:center;">
+                <div id="card-loading" style="width:100%;text-align:center;color:#fff;opacity:0.7;font-size:2vw;">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando tus sellos...
+                </div>
             </div>
+            <h6 class="qr-hint">Cada compra suma un sello. ¡Llega a 9 y reclama tu premio!</h6>
         </div>
     </div>
 
@@ -495,7 +552,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     <script>
-        const MAX_SELLOS = 10;
+        // Función para obtener el valor de una cookie por nombre
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+    const MAX_SELLOS = 9;
         
         // Registro del Service Worker para PWA
         if ('serviceWorker' in navigator) {
@@ -504,11 +569,11 @@
                 .catch(err => console.error('Error al registrar Service Worker', err));
         }
 
-        const SELLOS_PARA_RECOMPENSA = 10;
+    const SELLOS_PARA_RECOMPENSA = 9;
         const cardContent = document.getElementById('card-content');
         const progreso = document.getElementById('progreso');
         const contadorSellos = document.getElementById('contador-sellos');
-        const metaSellos = document.getElementById('meta-sellos');
+    const metaSellos = document.getElementById('meta-sellos');
         const welcomeCard = document.getElementById('welcome-card');
         const qrModal = document.getElementById('qr-modal');
         const closeModal = document.getElementById('close-modal');
@@ -547,32 +612,29 @@
         }
 
         function mostrarSellos(sellos, premioId) {
+            cardContent.innerHTML = '';
+            cardContent.style.minHeight = '12vw';
+            cardContent.style.display = 'flex';
+            cardContent.style.alignItems = 'center';
+            cardContent.style.justifyContent = 'center';
             const stampsContainer = document.createElement('div');
             stampsContainer.className = 'stamps-grid';
-            
             for (let i = 0; i < MAX_SELLOS; i++) {
-                const div = document.createElement('div');
-                div.className = 'stamp' + (i < sellos ? ' collected' : '');
                 if (i < sellos) {
                     const img = document.createElement('img');
                     img.src = 'sello.png';
                     img.alt = 'Sello';
                     img.className = 'stamp-img';
-                    div.appendChild(img);
+                    stampsContainer.appendChild(img);
+                } else {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'stamp-empty';
+                    emptyDiv.style.width = 'var(--stamp-size)';
+                    emptyDiv.style.height = 'var(--stamp-size)';
+                    stampsContainer.appendChild(emptyDiv);
                 }
-                stampsContainer.appendChild(div);
             }
-            
-            // Asegura que siempre haya 8 sellos
-            while (stampsContainer.children.length < 8) {
-                const div = document.createElement('div');
-                div.className = 'stamp';
-                stampsContainer.appendChild(div);
-            }
-            
-            cardContent.innerHTML = '';
             cardContent.appendChild(stampsContainer);
-            
             progreso.style.width = `${(sellos / MAX_SELLOS) * 100}%`;
             contadorSellos.textContent = `${sellos} sellos`;
             metaSellos.textContent = `${MAX_SELLOS} sellos`;
@@ -617,56 +679,51 @@
             }
         }
 
+
         async function actualizarSellosUsuario() {
-            const cookie = getCookie('usuario_tarjeta');
-            if (!cookie) return;
-            
-            const usuario = JSON.parse(decodeURIComponent(escape(atob(cookie))));
-            if (!usuario || !usuario.nombre || !usuario.telefono) return;
-            
-            const res = await fetch('/clientes');
-            const usuarios = await res.json();
-            const actual = usuarios.find(u => u.nombre === usuario.nombre && u.telefono === usuario.telefono);
-            
-            if (actual) mostrarContenidoTarjeta(actual.sellos || 0, actual.premio);
-        }
+    const cookie = getCookie('usuario_tarjeta');
+    if (!cookie) {
+        window.location.href = 'subscribe.html';
+        return;
+    }
+    let usuario;
+    try {
+        usuario = JSON.parse(decodeURIComponent(escape(atob(cookie))));
+    } catch (e) {
+        window.location.href = 'subscribe.html';
+        return;
+    }
+    if (!usuario || !usuario.nombre || !usuario.telefono) {
+        window.location.href = 'subscribe.html';
+        return;
+    }
+    // Mostrar nombre
+    const nombreUsuario = document.getElementById('nombreUsuario');
+    if (nombreUsuario) nombreUsuario.textContent = usuario.nombre;
 
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-
-        function generarQR(elementId, value, size) {
-            if (window.QRious && value) {
-                return new QRious({
-                    element: document.getElementById(elementId),
-                    value: value,
-                    size: size
-                });
-            }
-            return null;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const cookie = getCookie('usuario_tarjeta');
-            if (!cookie) {
-                window.location.href = 'subscribe.html';
-            } else {
-                const usuario = JSON.parse(decodeURIComponent(escape(atob(cookie))));
-                const nombreSpan = document.getElementById('nombreUsuario');
-                
-                if (nombreSpan) {
-                    nombreSpan.textContent = usuario.nombre;
-                }
-
-                // Generar QR automáticamente con el nombre
-                setTimeout(() => {
-                    generarQR('qrCanvas', usuario.nombre, 250);
-                    generarQR('qrMini', usuario.nombre, 80);
-                }, 100);
-            }
+    // Generar QR en qrMini y qrCanvas SOLO con el teléfono
+    const qrMini = document.getElementById('qrMini');
+    const qrCanvas = document.getElementById('qrCanvas');
+    if (qrMini) {
+        new QRious({
+            element: qrMini,
+            value: usuario.telefono,
+            size: 120
         });
+    }
+    if (qrCanvas) {
+        new QRious({
+            element: qrCanvas,
+            value: usuario.telefono,
+            size: 300
+        });
+    }
+
+    const res = await fetch('/clientes');
+    const usuarios = await res.json();
+    const actual = usuarios.find(u => u.nombre === usuario.nombre && u.telefono === usuario.telefono);
+    if (actual) mostrarContenidoTarjeta(actual.sellos || 0, actual.premio);
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             actualizarSellosUsuario();
