@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Tarjetas</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="manifest" href="manifest_admin.json">
+  <style>
+    /* Variables de diseño */
+    :root {
+      --primary: #E6B85C;
+      --primary-hover: #C48F3A;
+      --success: #28a745;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --light: #f8f9fa;
+      --border-radius: 12px;
+      --box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    /* Estilos base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .admin-header {
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary), #6a4bff);
+      color: white;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .admin-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0;
+    }
+    
+    .admin-header h1 {
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Contenido principal */
+    .admin-main {
+      flex: 1;
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 100%;
+      padding: 0;
+    }
+    
+    /* Tarjetas */
+    .card {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    
+    .card-header {
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    
+    .card-body {
+      padding: 0;
+    }
+    
+    /* Lista de usuarios */
+    .user-list-container {
+      width: 100%;
+    }
+    
+    .user-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.5rem;
+    }
+    
+    .user-card {
+      background: #fff;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+      margin-bottom: 1em;
+      border-radius: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 2.5px solid #FFA540;
+    }
+    
+    .user-card.active-row {
+      animation: highlightRow 4s cubic-bezier(.4,0,.2,1);
+    }
+    
+    @keyframes highlightRow {
+      0%   { background-color: rgba(255, 165, 80, 0.32); }
+      80%  { background-color: rgba(255, 165, 80, 0.32); }
+      100% { background-color: transparent; }
+    }
+    
+    /* Elementos de usuario */
+    .stamp-count {
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    
+    .badge-premio {
+      background: var(--warning);
+      color: #333;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    
+    /* Botones */
+    .btn-sm {
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      min-width: 2.5rem;
+    }
+    
+    .btn-group-sm > .btn {
+      padding: 0.4rem 0.8rem;
+    }
+    
+    /* Formularios */
+    .search-box {
+      border-radius: 1.5rem;
+      padding: 0.375rem 0.75rem;
+      border: 1px solid #ddd;
+      font-size: 0.9rem;
+    }
+    
+    /* Premios */
+    .premio-item {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* Alertas */
+    .alert {
+      padding: 0.5rem 1rem;
+      margin: 0;
+      border-radius: 0;
+      font-size: 0.85rem;
+    }
+    
+    /* Diseño responsivo */
+    @media (max-width: 768px) {
+      .admin-header {
+        padding: 0.7rem 0.8rem;
+      }
+      
+      .admin-header h1 {
+        font-size: 1.1rem;
+      }
+      
+      .admin-main {
+        padding: 0.8rem;
+        gap: 0.8rem;
+      }
+      
+      .card-header {
+        padding: 0.6rem 0.8rem;
+      }
+      
+      .user-card {
+        padding: 0.6rem;
+      }
+      
+      .btn-sm {
+        padding: 0.35rem 0.7rem;
+        min-width: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .admin-header h1 {
+        font-size: 1rem;
+      }
+      
+      .user-card {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      .user-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+      
+      .search-box {
+        max-width: 120px;
+      }
+    }
+    
+    /* Utilidades */
+    .gap-1 {
+      gap: 0.5rem;
+    }
+    
+    .gap-2 {
+      gap: 1rem;
+    }
+    
+    .flex-1 {
+      flex: 1;
+    }
+    
+    .text-truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    /* Sin scroll en body */
+    body.no-scroll {
+      overflow: hidden;
+    }
+    
+    .navbar {
+      background: var(--primary);
+      box-shadow: var(--box-shadow);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100vw;
+      min-height: 0;
+    }
+    .navbar-container {
+      max-width: 100vw;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1.5rem;
+      height: 3.2rem;
+      position: relative;
+    }
+    .navbar-logo {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .navbar-menu {
+      list-style: none;
+      display: flex;
+      gap: 1.2em;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      transition: max-height 0.3s;
+    }
+    .navbar-menu li {
+      display: inline-block;
+    }
+    .navbar-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .navbar-menu a:hover {
+      background: var(--primary-hover);
+      color: #fffbe6;
+    }
+    /* Toggle para móviles */
+    .navbar-toggle {
+      display: none;
+    }
+    .navbar-toggle-label {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 2.2em;
+      height: 2.2em;
+      justify-content: center;
+      align-items: center;
+      gap: 0.3em;
+    }
+    .navbar-toggle-label span {
+      display: block;
+      width: 2em;
+      height: 0.22em;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    @media (max-width: 900px) {
+      .navbar-container {
+        padding: 0.5rem 0.7rem;
+      }
+      .navbar-menu {
+        gap: 0.7em;
+      }
+    }
+    @media (max-width: 600px) {
+      .navbar-container {
+        flex-direction: row;
+        height: auto;
+        padding: 0.3rem 0.5rem;
+      }
+      .navbar-logo {
+        font-size: 1em;
+      }
+      .navbar-toggle-label {
+        display: flex;
+      }
+      .navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--primary);
+        flex-direction: column;
+        align-items: flex-start;
+        max-height: 0;
+        overflow: hidden;
+        width: 100vw;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        z-index: 1001;
+      }
+      .navbar-toggle:checked ~ .navbar-menu {
+        max-height: 10em;
+        padding-bottom: 0.5em;
+      }
+      .navbar-menu li {
+        width: 100%;
+      }
+      .navbar-menu a {
+        width: 100%;
+        padding: 0.7em 1.2em;
+        font-size: 1em;
+      }
+    }
+
+    .navbar-toggle, .navbar-toggle-label { display: none !important; }
+    .navbar-menu {
+      flex-direction: row !important;
+      position: static !important;
+      background: none !important;
+      width: auto !important;
+      box-shadow: none !important;
+      max-height: none !important;
+      overflow: visible !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+    }
+    .navbar-menu li, .navbar-menu a {
+      width: auto !important;
+      padding: 0.4rem 0.7rem !important;
+      font-size: 1rem !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Panel de Login -->
+  <div id="login-container" style="display:none;min-height:100vh;width:100vw;position:fixed;top:0;left:0;z-index:9999;background:#f8f9fa;align-items:center;justify-content:center;">
+    <form id="login-form" class="card p-4" style="max-width:350px;margin:auto;">
+      <h4 class="mb-3">Iniciar sesión</h4>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="usuario" placeholder="Usuario" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+      <div id="login-error" class="text-danger mt-2" style="display:none;"></div>
+    </form>
+  </div>
+  <!-- Fin Panel de Login -->
+  <div id="main-content">
+    <nav class="navbar">
+      <div class="navbar-container">
+        <ul class="navbar-menu">
+          <li><a href="webpush.html"><i class="fa fa-bell"></i> Notificaciones</a></li>
+          <li><a href="menu_admin.html"><i class="fa fa-bars"></i> Menú</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Cabecera eliminada: Sellos -->
+    <div class="admin-main">
+      <div class="container">
+        <!-- Sección Premios -->
+        <div class="card">
+          <div class="card-header" data-bs-toggle="collapse" href="#premiosCollapse">
+            <span><i class="fas fa-trophy me-2"></i>Premios</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div id="premiosCollapse" class="collapse">
+            <div class="card-body">
+              <form id="formPremio" class="d-flex p-2 border-bottom gap-2">
+                <input type="text" id="nuevoPremio" class="form-control form-control-sm" 
+                       placeholder="Nuevo premio" required>
+                <button type="submit" class="btn btn-sm btn-primary">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </form>
+              <div id="listaPremios"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección Usuarios -->
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center gap-2">
+              <span><i class="fas fa-users me-2"></i></span>
+              <span class="d-none d-sm-inline">Usuarios:</span>
+              <span id="contadorUsuarios" class="badge bg-primary">0</span>
+            </div>
+            
+            <div class="d-flex align-items-center gap-2">
+              <div class="input-group input-group-sm" style="max-width:180px;">
+                <input type="text" id="filtroUsuarios" class="form-control search-box" 
+                       placeholder="Buscar..." aria-label="Buscar usuarios">
+                <button class="btn btn-outline-secondary" type="button" id="limpiarBusqueda">
+                  <i class="fas fa-eraser"></i>
+                </button>
+                <button class="btn btn-outline-primary" type="button" id="btnLeerQR" title="Leer QR para filtrar">
+                  <i class="fas fa-qrcode"></i>
+                </button>
+  <!-- Modal QR -->
+  <div class="modal fade" id="modalQR" tabindex="-1" aria-labelledby="modalQRLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalQRLabel">Escanear QR para filtrar usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <video id="videoQR" style="width:100%;border-radius:10px;background:#000;" playsinline muted></video>
+          <canvas id="canvasQR" style="display:none;"></canvas>
+          <div id="qrStatus" class="mt-2 text-center text-muted" style="font-size:0.95rem;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  // --- QR lector para filtro de usuarios ---
+  (function(){
+    let stream = null;
+    let scanning = false;
+    let detector = null;
+    let rafId = null;
+    const video = document.getElementById('videoQR');
+    const canvas = document.getElementById('canvasQR');
+    const qrStatus = document.getElementById('qrStatus');
+    let modalQR = null;
+
+    async function startQR() {
+      if (!('BarcodeDetector' in window)) {
+        qrStatus.textContent = 'Tu navegador no soporta BarcodeDetector (requiere Chrome/Edge moderno)';
+        return;
+      }
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: false
+        });
+        video.srcObject = stream;
+        await video.play();
+        detector = new BarcodeDetector({ formats: ['qr_code'] });
+        scanning = true;
+        qrStatus.textContent = 'Escanea un código QR...';
+        loopQR();
+      } catch (err) {
+        qrStatus.textContent = 'No se pudo acceder a la cámara.';
+      }
+    }
+
+    function stopQR() {
+      scanning = false;
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      if (video && video.srcObject) {
+        const tracks = video.srcObject.getTracks();
+        tracks.forEach(t => t.stop());
+        video.srcObject = null;
+      }
+    }
+
+    async function onDetectedQR(text) {
+      stopQR();
+      if (modalQR) modalQR.hide();
+      document.getElementById('filtroUsuarios').value = text;
+      document.getElementById('filtroUsuarios').dispatchEvent(new Event('input'));
+    }
+
+    async function loopQR() {
+      if (!scanning || !detector) return;
+      const vw = video.videoWidth || 1280;
+      const vh = video.videoHeight || 720;
+      if (vw && vh) {
+        canvas.width = vw;
+        canvas.height = vh;
+      }
+      try {
+        const barcodes = await detector.detect(video);
+        if (barcodes && barcodes.length) {
+          const code = barcodes[0].rawValue ?? '';
+          qrStatus.textContent = 'QR detectado: ' + code;
+          setTimeout(() => onDetectedQR(String(code || '').trim()), 500);
+          return;
+        }
+      } catch (err) {
+        qrStatus.textContent = 'Error al detectar QR';
+      }
+      rafId = requestAnimationFrame(loopQR);
+    }
+
+    document.getElementById('btnLeerQR').addEventListener('click', function() {
+      if (!modalQR) {
+        modalQR = new bootstrap.Modal(document.getElementById('modalQR'));
+      }
+      modalQR.show();
+      setTimeout(startQR, 400);
+    });
+    document.getElementById('modalQR').addEventListener('hidden.bs.modal', function() {
+      stopQR();
+      qrStatus.textContent = '';
+    });
+  })();
+  </script>
+              </div>
+              <i class="fas fa-chevron-down ms-2" id="toggleUsuariosPanel" style="cursor:pointer;"></i>
+            </div>
+          </div>
+          <div id="usuariosCollapse" class="collapse show">
+            <div class="alert alert-info py-2 px-3 mb-0" style="font-size:0.85rem;" id="ayudaBusqueda">
+              Busca usuarios por nombre. <i class="fas fa-eraser"></i> para limpiar.
+            </div>
+            <div class="card-body p-0">
+              <div class="user-list-container">
+                <div id="listaUsuarios" class="user-list">
+                  <!-- Los usuarios se cargarán aquí dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    let ws;
+    let premios = [];
+    
+    // Conexión WebSocket
+    function conectarWebSocket() {
+      let protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+      let host = window.location.host;
+      // Permitir override por variable global para pruebas/remoto
+      if (window.WS_HOST) host = window.WS_HOST;
+      try {
+        ws = new WebSocket(protocol + host);
+      } catch (err) {
+        mostrarErrorConexion('No se pudo conectar al WebSocket.');
+        setTimeout(conectarWebSocket, 5000);
+        return;
+      }
+      ws.onopen = () => {
+        ocultarErrorConexion();
+      };
+      ws.onmessage = (e) => {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.tipo === 'actualizar-clientes') cargarUsuarios();
+        } catch (error) {
+          console.error('Error WS:', error);
+        }
+      };
+      ws.onerror = () => {
+        mostrarErrorConexion('Error en la conexión WebSocket.');
+      };
+      ws.onclose = () => {
+        mostrarErrorConexion('WebSocket desconectado. Reintentando...');
+        setTimeout(conectarWebSocket, 5000);
+      };
+    }
+
+    function mostrarErrorConexion(msg) {
+      let el = document.getElementById('ws-error');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'ws-error';
+        el.style.position = 'fixed';
+        el.style.top = '0';
+        el.style.left = '0';
+        el.style.width = '100%';
+        el.style.background = '#dc3545';
+        el.style.color = 'white';
+        el.style.zIndex = '9999';
+        el.style.textAlign = 'center';
+        el.style.padding = '6px 0';
+        el.style.fontWeight = 'bold';
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+    function ocultarErrorConexion() {
+      let el = document.getElementById('ws-error');
+      if (el) el.style.display = 'none';
+    }
+    
+    // Cargar usuarios ordenados por sellos descendente
+    async function cargarUsuarios(resaltarId = null) {
+      try {
+        const res = await fetch('/clientes');
+        if (!res.ok) throw new Error('Error HTTP: ' + res.status);
+        let usuarios = await res.json();
+        document.getElementById('contadorUsuarios').textContent = usuarios ? usuarios.length : 0;
+        const lista = document.getElementById('listaUsuarios');
+        lista.innerHTML = '';
+        if (!usuarios || usuarios.length === 0) {
+          lista.innerHTML = '<div class="p-3 text-muted text-center">No hay usuarios registrados</div>';
+          return;
+        }
+        usuarios = usuarios.sort((a, b) => (b.sellos || 0) - (a.sellos || 0));
+        const filtro = document.getElementById('filtroUsuarios').value.toLowerCase();
+        if (filtro) {
+          usuarios = usuarios.filter(u => (u.nombre || '').toLowerCase().includes(filtro));
+        }
+        usuarios.forEach(u => {
+          const premio = u.premio ? premios.find(p => p.id === u.premio) : null;
+          const disabled = u.sellos >= 10 ? 'disabled' : '';
+          const userDiv = document.createElement('div');
+          userDiv.className = 'user-card';
+          userDiv.id = 'user-' + u.id;
+          userDiv.innerHTML = `
+            <div class="d-flex align-items-center gap-2 flex-1">
+              <strong class="text-truncate" style="max-width: 120px;">${u.nombre}</strong>
+              <span class="stamp-count">${u.sellos || 0}/10</span>
+            </div>
+            <div class="d-flex align-items-center gap-1 user-actions">
+              ${premio ? `<span class="badge-premio">${premio.nombre}</span>` : ''}
+              <button onclick="agregarSello('${u.id}')" class="btn btn-sm btn-success" ${disabled}>
+                <i class="fas fa-plus"></i>
+              </button>
+              ${premio ? `
+              <button onclick="canjearPremio('${u.id}')" class="btn btn-sm btn-warning">
+                <i class="fas fa-check"></i>
+              </button>
+              ` : ''}
+            </div>
+          `;
+          lista.appendChild(userDiv);
+        });
+        if (resaltarId) {
+          setTimeout(() => { window.resaltarFila(resaltarId); }, 50);
+        }
+      } catch (error) {
+        console.error('Error cargar usuarios:', error);
+        let lista = document.getElementById('listaUsuarios');
+        if (lista) lista.innerHTML = '<div class="p-3 text-danger text-center">Error al cargar usuarios. El servidor no responde o la respuesta no es válida.</div>';
+      }
+    }
+    
+    async function cargarPremios() {
+      try {
+        const res = await fetch('/premios');
+        premios = await res.json();
+        const lista = document.getElementById('listaPremios');
+        lista.innerHTML = '';
+        
+        if (premios.length === 0) {
+          lista.innerHTML = '<div class="p-3 text-muted text-center">No hay premios</div>';
+          return;
+        }
+        
+        premios.forEach(p => {
+          const item = document.createElement('div');
+          item.className = 'premio-item';
+          item.innerHTML = `
+            <span class="text-truncate">${p.nombre}</span>
+            <button onclick="eliminarPremio('${p.id}')" class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          `;
+          lista.appendChild(item);
+        });
+      } catch (error) {
+        console.error('Error cargar premios:', error);
+      }
+    }
+    
+    async function agregarSello(id) {
+      try {
+        // Validación extra: no permitir más de 10 sellos
+        const usuarioDiv = document.getElementById('user-' + id);
+        if (usuarioDiv) {
+          const countSpan = usuarioDiv.querySelector('.stamp-count');
+          if (countSpan) {
+            const actual = parseInt(countSpan.textContent.split('/')[0], 10);
+            if (actual >= 10) return; // No enviar petición si ya tiene el máximo
+          }
+        }
+        await fetch('/agregarSello', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        cargarUsuarios(id);
+      } catch (error) {
+        alert('Error al agregar sello');
+      }
+    }
+    
+    async function eliminarPremio(id) {
+      if (!confirm('¿Eliminar premio?')) return;
+      try {
+        await fetch(`/premios/${id}`, { method: 'DELETE' });
+        cargarPremios();
+      } catch (error) {
+        alert('Error al eliminar premio');
+      }
+    }
+    
+    async function canjearPremio(usuarioId) {
+      try {
+        await fetch('/premios/canjear', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ usuarioId })
+        });
+        cargarUsuarios(usuarioId);
+      } catch (error) {
+        alert('Error al canjear premio');
+      }
+    }
+    
+    // Event listeners
+    document.getElementById('filtroUsuarios').addEventListener('input', function() {
+      cargarUsuarios();
+    });
+
+    document.getElementById('limpiarBusqueda').addEventListener('click', function() {
+      document.getElementById('filtroUsuarios').value = '';
+      cargarUsuarios();
+    });
+
+    document.getElementById('toggleUsuariosPanel').addEventListener('click', function(e) {
+      e.stopPropagation();
+      const panel = document.getElementById('usuariosCollapse');
+      const icon = document.getElementById('toggleUsuariosPanel');
+      if (panel.classList.contains('show')) {
+        panel.classList.remove('show');
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      } else {
+        panel.classList.add('show');
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      }
+    });
+
+    document.getElementById('formPremio').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const nombre = this.nuevoPremio.value.trim();
+      if (!nombre) return;
+      
+      try {
+        await fetch('/premios', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre })
+        });
+        this.nuevoPremio.value = '';
+        cargarPremios();
+      } catch (error) {
+        alert('Error al agregar premio');
+      }
+    });
+    
+    // Funciones auxiliares
+    window.resaltarFila = function(id) {
+      document.querySelectorAll('.user-card').forEach(card => {
+        card.classList.remove('active-row');
+      });
+      const fila = document.getElementById('user-' + id);
+      if (fila) {
+        fila.classList.add('active-row');
+        fila.addEventListener('animationend', function handler() {
+          fila.classList.remove('active-row');
+          fila.removeEventListener('animationend', handler);
+        });
+      }
+    }
+    
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', () => {
+      // Configurar ícono inicial del panel de usuarios
+      const panel = document.getElementById('usuariosCollapse');
+      const icon = document.getElementById('toggleUsuariosPanel');
+      if (panel.classList.contains('show')) {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      } else {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      }
+      
+      // Iniciar conexiones y cargar datos
+      conectarWebSocket();
+      cargarPremios();
+      cargarUsuarios();
+    });
+  </script>
+  
+  <script>
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    function showLogin(show) {
+      var loginContainer = document.getElementById('login-container');
+      if (loginContainer) {
+        loginContainer.style.display = show ? 'flex' : 'none';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const token = getCookie('auth');
+      if (token) {
+        fetch('/validate', { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({ token }) 
+        })
+        .then(res => res.json())
+        .then(data => {
+          showLogin(!(data.valid));
+        });
+      } else {
+        showLogin(true);
+      }
+      
+      var loginForm = document.getElementById('login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const usuario = document.getElementById('usuario').value;
+          const password = document.getElementById('password').value;
+          fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ usuario, password })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.token) {
+              setCookie('auth', data.token, 30);
+              showLogin(false);
+              var loginError = document.getElementById('login-error');
+              if (loginError) loginError.style.display = 'none';
+            } else {
+              var loginError = document.getElementById('login-error');
+              if (loginError) {
+                loginError.innerText = 'Credenciales incorrectas';
+                loginError.style.display = 'block';
+              }
+            }
+          });
+        });
+      }
+    });
+  </script>
+  
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    background: #f4f6fb;
+  }
+  .navbar {
+    background: var(--primary);
+    box-shadow: var(--box-shadow);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100vw;
+    min-height: 0;
+  }
+  .navbar-container {
+    max-width: 100vw;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+    height: 3.2rem;
+    position: relative;
+  }
+  .navbar-logo {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.2em;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    transition: max-height 0.3s;
+  }
+  .navbar-menu li {
+    display: inline-block;
+  }
+  .navbar-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .navbar-menu a:hover {
+    background: var(--primary-hover);
+    color: #fffbe6;
+  }
+  /* Toggle para móviles */
+  .navbar-toggle {
+    display: none;
+  }
+  .navbar-toggle-label {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 2.2em;
+    height: 2.2em;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+  }
+  .navbar-toggle-label span {
+    display: block;
+    width: 2em;
+    height: 0.22em;
+    background: #fff;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  @media (max-width: 900px) {
+    .navbar-container {
+      padding: 0.5rem 0.7rem;
+    }
+    .navbar-menu {
+      gap: 0.7em;
+    }
+  }
+  @media (max-width: 600px) {
+    .navbar-container {
+      flex-direction: row;
+      height: auto;
+      padding: 0.3rem 0.5rem;
+    }
+    .navbar-logo {
+      font-size: 1em;
+    }
+    .navbar-toggle-label {
+      display: flex;
+    }
+    .navbar-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      flex-direction: column;
+      align-items: flex-start;
+      max-height: 0;
+      overflow: hidden;
+      width: 100vw;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      z-index: 1001;
+    }
+    .navbar-toggle:checked ~ .navbar-menu {
+      max-height: 10em;
+      padding-bottom: 0.5em;
+    }
+    .navbar-menu li {
+      width: 100%;
+    }
+    .navbar-menu a {
+      width: 100%;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+    }
+  }
+</style>
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Fidelidad Moderna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --primary-color: #E6B85C;
+            --primary-dark: #C48F3A;
+            --secondary-color: #4A3C31;
+            --light-bg: #FFF8F0;
+            --card-bg: #FFFFFF;
+            --accent-color: #FF7E5F;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--light-bg);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: var(--secondary-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .btn-menu {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 12px 20px;
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-menu:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .page-title {
+            font-weight: 800;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+            position: relative;
+        }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(230, 184, 92, 0.2);
+        }
+
+        .welcome-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .welcome-text {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            word-break: break-word;
+        }
+
+        .qr-mini {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .qr-mini canvas {
+            width: 80px !important;
+            height: 80px !important;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+        }
+
+        .qr-hint {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px 20px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .progress-container {
+            margin-bottom: 24px;
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 10px;
+            background: #f0e6d6;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: width 0.5s ease;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+
+        .stamps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stamp {
+            aspect-ratio: 1;
+            border: 2px dashed var(--primary-color);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .stamp.collected {
+            background: var(--primary-color);
+            border: 2px solid var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(216, 164, 94, 0.3);
+        }
+
+        .stamp.collected::after {
+            content: '✓';
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: var(--accent-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 2px solid white;
+        }
+
+        .stamp-img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+
+        .reward-container {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, rgba(230, 184, 92, 0.15), rgba(255, 126, 95, 0.15));
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            animation: fadeIn 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .reward-badge {
+            font-size: 80px;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .reward-title {
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .reward-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .reward-action {
+            margin-top: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .reward-action:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal QR */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            max-width: 90vw;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #f0f0f0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: #e0e0e0;
+        }
+
+        .modal-title {
+            margin-bottom: 16px;
+            color: var(--secondary-color);
+        }
+
+        .modal-qr {
+            margin: 20px 0;
+        }
+
+        .modal-qr canvas {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 16px;
+            background: white;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 8px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .welcome-text {
+                font-size: 16px;
+            }
+            
+            .stamps-grid {
+                gap: 8px;
+            }
+            
+            .card {
+                padding: 20px 16px;
+                min-height: 250px;
+            }
+
+            .reward-badge {
+                font-size: 60px;
+            }
+
+            .reward-title {
+                font-size: 20px;
+            }
+
+            .reward-message {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stamps-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+            
+            .welcome-text {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="menu.html" class="btn-menu">
+                <i class="fas fa-th-large"></i>
+                <span>Menú</span>
+            </a>
+        </div>
+
+        <h1 class="page-title">Tarjeta de Fidelidad</h1>
+
+        <div class="welcome-card" id="welcome-card">
+            <div class="welcome-text">Bienvenido, <span id="nombreUsuario"></span></div>
+            <div class="qr-mini">
+                <canvas id="qrMini"></canvas>
+            </div>
+            <div class="qr-hint">Toca para ver QR en pantalla completa</div>
+        </div>
+
+        <div class="card">
+            <div class="progress-container">
+                <div class="progress">
+                    <div id="progreso" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                </div>
+                <div class="progress-labels">
+                    <span id="contador-sellos">0 sellos</span>
+                    <span id="meta-sellos">10 sellos</span>
+                </div>
+            </div>
+
+            <div id="card-content">
+                <!-- Aquí se alternará entre sellos y premio -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal QR Pantalla Completa -->
+    <div class="modal-overlay" id="qr-modal">
+        <div class="modal-content">
+            <div class="modal-close" id="close-modal">
+                <i class="fas fa-times"></i>
+            </div>
+            <h3 class="modal-title">Tu código QR</h3>
+            <div class="modal-qr">
+                <canvas id="qrCanvas"></canvas>
+            </div> 
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <script>
+        const MAX_SELLOS = 10;
+        
+        // Registro del Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                .then(reg => console.log('Service Worker registrado', reg))
+                .catch(err => console.error('Error al registrar Service Worker', err));
+        }
+
+        const SELLOS_PARA_RECOMPENSA = 10;
+        const cardContent = document.getElementById('card-content');
+        const progreso = document.getElementById('progreso');
+        const contadorSellos = document.getElementById('contador-sellos');
+        const metaSellos = document.getElementById('meta-sellos');
+        const welcomeCard = document.getElementById('welcome-card');
+        const qrModal = document.getElementById('qr-modal');
+        const closeModal = document.getElementById('close-modal');
+
+        let premioActual = null;
+
+        // Función para mostrar/ocultar el modal
+        function toggleModal(show) {
+            if (show) {
+                qrModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                qrModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Event listeners para el modal
+        welcomeCard.addEventListener('click', () => toggleModal(true));
+        closeModal.addEventListener('click', () => toggleModal(false));
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) toggleModal(false);
+        });
+
+        // --- Panel Felicidades y Premio ---
+        function mostrarPanelPremio(premioId) {
+            fetch('/premios')
+                .then(res => res.json())
+                .then(premios => {
+                    const premio = premios.find(p => p.id === premioId);
+                    if (premio) {
+                        // Mostrar premio en lugar de sellos
+                        mostrarContenidoTarjeta(MAX_SELLOS, premioId);
+                    }
+                });
+        }
+
+        function mostrarSellos(sellos, premioId) {
+            const stampsContainer = document.createElement('div');
+            stampsContainer.className = 'stamps-grid';
+            
+            for (let i = 0; i < MAX_SELLOS; i++) {
+                const div = document.createElement('div');
+                div.className = 'stamp' + (i < sellos ? ' collected' : '');
+                if (i < sellos) {
+                    const img = document.createElement('img');
+                    img.src = 'sello.png';
+                    img.alt = 'Sello';
+                    img.className = 'stamp-img';
+                    div.appendChild(img);
+                }
+                stampsContainer.appendChild(div);
+            }
+            
+            // Asegura que siempre haya 8 sellos
+            while (stampsContainer.children.length < 8) {
+                const div = document.createElement('div');
+                div.className = 'stamp';
+                stampsContainer.appendChild(div);
+            }
+            
+            cardContent.innerHTML = '';
+            cardContent.appendChild(stampsContainer);
+            
+            progreso.style.width = `${(sellos / MAX_SELLOS) * 100}%`;
+            contadorSellos.textContent = `${sellos} sellos`;
+            metaSellos.textContent = `${MAX_SELLOS} sellos`;
+        }
+
+        function mostrarPremio(premio) {
+            const rewardContainer = document.createElement('div');
+            rewardContainer.className = 'reward-container';
+            
+            rewardContainer.innerHTML = `
+                <div class="reward-badge">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3 class="reward-title">¡Felicidades!</h3>
+                <p class="reward-message">Has ganado: ${premio.nombre}</p> 
+            `;
+            
+            cardContent.innerHTML = '';
+            cardContent.appendChild(rewardContainer);
+            
+            progreso.style.width = '100%';
+            contadorSellos.textContent = `${MAX_SELLOS} sellos`;
+            metaSellos.textContent = `${MAX_SELLOS} sellos`;
+        }
+
+        function mostrarContenidoTarjeta(sellos, premioId) {
+            if (sellos === MAX_SELLOS && premioId) {
+                // Si la tarjeta está llena y hay premio, mostrar solo el premio
+                fetch('/premios')
+                    .then(res => res.json())
+                    .then(premios => {
+                        const premio = premios.find(p => p.id === premioId);
+                        if (premio) {
+                            mostrarPremio(premio);
+                        } else {
+                            mostrarSellos(sellos);
+                        }
+                    });
+            } else {
+                // En cualquier otro caso, mostrar los sellos
+                mostrarSellos(sellos);
+            }
+        }
+
+        async function actualizarSellosUsuario() {
+            const cookie = getCookie('usuario_tarjeta');
+            if (!cookie) return;
+            
+            const usuario = JSON.parse(decodeURIComponent(escape(atob(cookie))));
+            if (!usuario || !usuario.nombre || !usuario.telefono) return;
+            
+            const res = await fetch('/clientes');
+            const usuarios = await res.json();
+            const actual = usuarios.find(u => u.nombre === usuario.nombre && u.telefono === usuario.telefono);
+            
+            if (actual) mostrarContenidoTarjeta(actual.sellos || 0, actual.premio);
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function generarQR(elementId, value, size) {
+            if (window.QRious && value) {
+                return new QRious({
+                    element: document.getElementById(elementId),
+                    value: value,
+                    size: size
+                });
+            }
+            return null;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookie = getCookie('usuario_tarjeta');
+            if (!cookie) {
+                window.location.href = 'subscribe.html';
+            } else {
+                const usuario = JSON.parse(decodeURIComponent(escape(atob(cookie))));
+                const nombreSpan = document.getElementById('nombreUsuario');
+                
+                if (nombreSpan) {
+                    nombreSpan.textContent = usuario.nombre;
+                }
+
+                // Generar QR automáticamente con el nombre
+                setTimeout(() => {
+                    generarQR('qrCanvas', usuario.nombre, 250);
+                    generarQR('qrMini', usuario.nombre, 80);
+                }, 100);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            actualizarSellosUsuario();
+            connectWebSocket();
+        });
+
+        function connectWebSocket() {
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+            const wsUrl = `${wsProtocol}://${window.location.host}`;
+            const socket = new WebSocket(wsUrl);
+            
+            socket.onopen = () => {
+                console.log('WebSocket conectado');
+            };
+            
+            socket.onmessage = (event) => {
+                try {
+                    const msg = JSON.parse(event.data);
+                    if (msg.tipo === 'actualizar-clientes') {
+                        actualizarSellosUsuario();
+                    }
+                } catch (e) {
+                    console.error('Mensaje WebSocket no es JSON:', event.data);
+                }
+            };
+            
+            socket.onerror = (err) => {
+                console.error('WebSocket error:', err);
+            };
+        }
+    </script>
+</body>
+</html>

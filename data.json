@@ -1,0 +1,35 @@
+{
+  "usuarios": [
+    {
+      "id": "1755727307595",
+      "nombre": "ROMEO",
+      "telefono": "+50231139041",
+      "subscription": {
+        "endpoint": "https://fcm.googleapis.com/fcm/send/fuW2n7J4AzQ:APA91bGcwH0SM8kIIyd9MxspFzGOgMRKMd6PkLYzsx1MJFbWOt_B_uQOVkwQezbgBYuyaxEdwl0FfrA-DN11jtWfxVuWvfOWJFj86a8WgTtBUYP37lbqL587l6HT5jpzoNPsc5QdWO7k",
+        "expirationTime": null,
+        "keys": {
+          "p256dh": "BBmfJj8wAujLL_4D-LSWeSGGAEL_jPQy6cmbuErdz9apV8-uDSkk4doTnGglyJm8xrC_YbweRIhkYvEy9H_yFm4",
+          "auth": "CnD0s-dcKUrUgnLg1kD6TQ"
+        }
+      },
+      "sellos": 3,
+      "premio": null
+    }
+  ],
+  "premios": [
+    {
+      "id": "1755654013705",
+      "nombre": "Crepa de Nutella, Banano y Fresas",
+      "canjeado": false
+    },
+    {
+      "id": "1755654042540",
+      "nombre": "Crepa De Jamón de Pavo y Queso Mozarella",
+      "canjeado": false
+    }
+  ],
+  "admin": {
+    "usuario": "REBL",
+    "password": "Corp"
+  }
+}

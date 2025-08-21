@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Menú</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .notificacion {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      min-width: 220px;
+      max-width: 90vw;
+      background: var(--success-color);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      z-index: 99999;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(.4,2,.6,1);
+      text-align: center;
+      pointer-events: none;
+    }
+    .notificacion-success { background: var(--success-color); }
+    .notificacion-danger { background: var(--danger-color); }
+    .notificacion-warning { background: var(--warning-color); color: #000; }
+    :root {
+      --primary-color: #C48F3A;
+      --secondary-color: #FFF8F0;
+      --accent-color: #E6B85C;
+      --text-color: #4A3C31;
+      --success-color: #28a745;
+      --danger-color: #dc3545;
+      --warning-color: #ffc107;
+    }
+    
+    body {
+      background: var(--secondary-color);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      color: var(--text-color);
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .app-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+    
+    /* Encabezado principal */
+.menu-header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding-top: 10px;
+}
+
+.menu-icon {
+  font-size: 1.3rem;
+  color: var(--accent-color);
+  margin-bottom: 2px;
+}
+
+.menu-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.7rem;
+}
+    
+    .card {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: none;
+    }
+    
+    .card-header {
+      background-color: var(--secondary-color);
+      font-weight: 600;
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .form-control, .form-select {
+      border-radius: 8px;
+      padding: 10px 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      flex-grow: 1;
+    }
+    
+    .btn {
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 500;
+      border: none;
+      white-space: nowrap;
+    }
+    
+    .btn-warning {
+      background-color: var(--warning-color);
+      color: #000;
+    }
+    
+    .btn-success {
+      background-color: var(--success-color);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+    }
+    
+    .btn-danger {
+      background-color: var(--danger-color);
+    }
+    
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+    
+    .list-group {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .list-group-item {
+      padding: 12px 15px;
+      border-color: rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+    }
+    
+    .categoria-header-admin {
+      background: #FFE5B4;
+      color: #000;
+      font-weight: bold;
+      padding: 10px 15px;
+      margin-top: 5px;
+    }
+    
+    .acciones-categoria, .acciones-producto {
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+    }
+    
+    .producto-info {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .producto-nombre {
+      font-weight: 600;
+    }
+    
+    .producto-precio {
+      color: var(--success-color);
+      font-size: 0.9rem;
+    }
+    
+    /* Modo edición */
+    .edit-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+    }
+    
+    .edit-input {
+      flex: 1 1 100%;
+    }
+    
+    /* Efectos hover */
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      transition: all 0.2s ease;
+    }
+    
+    /* Optimización para móviles */
+    @media (max-width: 576px) {
+      .app-container {
+        padding: 10px;
+      }
+      
+      .menu-title {
+        font-size: 1.5rem;
+      }
+      
+      .form-row {
+        flex-direction: column;
+      }
+      
+      .card-header {
+        padding: 10px 12px;
+        font-size: 1rem;
+      }
+      
+      .list-group-item {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+    .navbar {
+      background: #E6B85C;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 0;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      width: 100vw;
+      min-height: 0;
+    }
+    /* Empujar el contenido principal hacia abajo para que no quede oculto */
+    body, .app-container {
+      padding-top: 3.2rem !important;
+    }
+    .navbar-container {
+      max-width: 100vw;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1.5rem;
+      height: 3.2rem;
+      position: relative;
+    }
+    .navbar-logo {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .navbar-menu {
+      list-style: none;
+      display: flex;
+      gap: 1.2em;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      flex-direction: row !important;
+      position: static !important;
+      background: none !important;
+      width: auto !important;
+      box-shadow: none !important;
+      max-height: none !important;
+      overflow: visible !important;
+      align-items: center !important;
+    }
+    .navbar-menu li, .navbar-menu a {
+      width: auto !important;
+      padding: 0.4rem 0.7rem !important;
+      font-size: 1rem !important;
+    }
+    .navbar-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .navbar-menu a:hover {
+      background: #C48F3A;
+      color: #fffbe6;
+    }
+    .navbar-toggle, .navbar-toggle-label { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- Panel de Login -->
+  <div id="login-container" style="display:none;min-height:100vh;width:100vw;position:fixed;top:0;left:0;z-index:9999;background:#f8f9fa;align-items:center;justify-content:center;">
+    <form id="login-form" class="card p-4" style="max-width:350px;margin:auto;">
+      <h4 class="mb-3">Iniciar sesión</h4>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="usuario" placeholder="Usuario" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+      <div id="login-error" class="text-danger mt-2" style="display:none;"></div>
+    </form>
+  </div>
+  <!-- Fin Panel de Login -->
+  <div id="main-content">
+    <div class="app-container">
+      
+    <div class="menu-header">
+      <div class="menu-icon"><i class="fas fa-utensils"></i></div>
+      <h1 class="menu-title">Admin Menú</h1>
+    </div>
+    <!-- Notificaciones -->
+    <div id="notificacion" style="display:none;"></div>
+    </div>
+    
+    <!-- Categorías -->
+    <div class="card">
+      <div class="card-header">Crear Categoría</div>
+      <div class="card-body">
+        <form id="form-categoria" class="form-row">
+          <input type="text" id="nueva-categoria" class="form-control" placeholder="Nombre de categoría" required>
+          <button type="submit" class="btn btn-warning">Agregar</button>
+        </form>
+        <ul id="lista-categorias" class="list-group"></ul>
+      </div>
+    </div>
+    
+    <!-- Productos -->
+    <div class="card">
+      <div class="card-header">Crear Producto</div>
+      <div class="card-body">
+        <form id="form-producto" class="form-row">
+          <input type="text" id="nombre-producto" class="form-control" placeholder="Nombre del producto" required>
+          <input type="number" id="precio-producto" class="form-control" placeholder="Precio" min="0" step="0.01" required>
+          <select id="categoria-producto" class="form-select" required>
+            <option value="">Selecciona categoría</option>
+          </select>
+          <button type="submit" class="btn btn-success">Agregar</button>
+        </form>
+        <ul id="lista-productos" class="list-group"></ul>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+       <ul class="navbar-menu">
+        <li><a href="admin.html"><i class="fa fa-certificate"></i> Sellos</a></li>
+        <li><a href="webpush.html"><i class="fa fa-bell"></i> Notificaciones</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <script>
+    // Notificaciones visuales
+    function mostrarNotificacion(mensaje, tipo = 'success') {
+      const notif = document.getElementById('notificacion');
+      notif.textContent = mensaje;
+      notif.style.display = 'block';
+      notif.className = 'notificacion notificacion-' + tipo;
+      setTimeout(() => {
+        notif.style.opacity = '1';
+        notif.style.transform = 'translateY(0)';
+      }, 10);
+      setTimeout(() => {
+        notif.style.opacity = '0';
+        notif.style.transform = 'translateY(-30px)';
+        setTimeout(() => {
+          notif.style.display = 'none';
+        }, 400);
+      }, 2200);
+    }
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    function showLogin(show) {
+      var loginContainer = document.getElementById('login-container');
+      if (loginContainer) {
+        loginContainer.style.display = show ? 'flex' : 'none';
+      }
+      var mainContent = document.getElementById('main-content');
+      if (mainContent) {
+        mainContent.style.display = show ? 'none' : '';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      const token = getCookie('auth');
+      if (token) {
+        fetch('/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        })
+        .then(res => res.json())
+        .then(data => {
+          showLogin(!(data.valid));
+        });
+      } else {
+        showLogin(true);
+      }
+      var loginForm = document.getElementById('login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const usuario = document.getElementById('usuario').value;
+          const password = document.getElementById('password').value;
+          fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ usuario, password })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.token) {
+              setCookie('auth', data.token, 30);
+              showLogin(false);
+              var loginError = document.getElementById('login-error');
+              if (loginError) loginError.style.display = 'none';
+            } else {
+              var loginError = document.getElementById('login-error');
+              if (loginError) {
+                loginError.innerText = 'Credenciales incorrectas';
+                loginError.style.display = 'block';
+              }
+            }
+          });
+        });
+      }
+    });
+  </script>
+  <script>
+    // Datos en memoria sincronizados con backend
+    let categorias = [];
+    let productos = [];
+
+    // Cargar datos del backend al iniciar
+    async function cargarMenu() {
+      try {
+        const res = await fetch('/menu_data');
+        const data = await res.json();
+        categorias = data.categorias || [];
+        productos = data.productos || [];
+        renderCategorias();
+        renderCategoriasSelect();
+        renderProductos();
+      } catch (err) {
+        categorias = [];
+        productos = [];
+      }
+    }
+
+    // Guardar datos en el backend
+    async function guardarMenu() {
+      try {
+        await fetch('/menu_data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ categorias, productos })
+        });
+      } catch (err) {
+        alert('Error guardando menú');
+      }
+    }
+
+    // Crear categoría
+    document.getElementById('form-categoria').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const nombre = document.getElementById('nueva-categoria').value.trim();
+  if (!nombre) return;
+  if (categorias.includes(nombre)) return mostrarNotificacion('La categoría ya existe', 'warning');
+  categorias.push(nombre);
+  document.getElementById('nueva-categoria').value = '';
+  renderCategorias();
+  renderCategoriasSelect();
+  await guardarMenu();
+  mostrarNotificacion('Categoría agregada con éxito', 'success');
+    });
+
+    // Crear producto
+    document.getElementById('form-producto').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const nombre = document.getElementById('nombre-producto').value.trim();
+  const precio = parseFloat(document.getElementById('precio-producto').value);
+  const categoria = document.getElementById('categoria-producto').value;
+  if (!nombre || !categoria || isNaN(precio)) return;
+  productos.push({ nombre, categoria, precio });
+  document.getElementById('nombre-producto').value = '';
+  document.getElementById('precio-producto').value = '';
+  renderProductos();
+  await guardarMenu();
+  mostrarNotificacion('Producto agregado con éxito', 'success');
+    });
+
+    function renderCategorias() {
+      const ul = document.getElementById('lista-categorias');
+      ul.innerHTML = '';
+      if (categorias.length === 0) {
+        ul.innerHTML = '<li class="list-group-item text-muted">No hay categorías</li>';
+        return;
+      }
+      categorias.forEach(cat => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex';
+        
+        // Modo edición
+        let editando = false;
+        function renderCategoriaItem() {
+          li.innerHTML = '';
+          if (!editando) {
+            const span = document.createElement('span');
+            span.textContent = cat;
+            li.appendChild(span);
+            
+            // Contenedor de botones
+            const acciones = document.createElement('div');
+            acciones.className = 'acciones-categoria';
+            
+            // Botón editar
+            const btnEdit = document.createElement('button');
+            btnEdit.className = 'btn btn-sm btn-primary';
+            btnEdit.innerHTML = '<i class="fas fa-edit"></i>';
+            btnEdit.onclick = function() {
+              editando = true;
+              renderCategoriaItem();
+            };
+            acciones.appendChild(btnEdit);
+            
+            // Botón eliminar
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-sm btn-danger';
+            btn.innerHTML = '<i class="fas fa-trash"></i>';
+            btn.onclick = async function() {
+              if (confirm(`¿Eliminar la categoría "${cat}" y todos sus productos?`)) {
+                categorias = categorias.filter(c => c !== cat);
+                productos = productos.filter(p => p.categoria !== cat);
+                renderCategorias();
+                renderCategoriasSelect();
+                renderProductos();
+                await guardarMenu();
+                mostrarNotificacion('Categoría eliminada', 'danger');
+              }
+            };
+            acciones.appendChild(btn);
+            li.appendChild(acciones);
+          } else {
+            // Modo edición
+            const editForm = document.createElement('div');
+            editForm.className = 'edit-form';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = cat;
+            input.className = 'form-control edit-input';
+            editForm.appendChild(input);
+            
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'd-flex gap-2 w-100';
+            
+            // Botón guardar
+            const btnSave = document.createElement('button');
+            btnSave.className = 'btn btn-sm btn-success flex-grow-1';
+            btnSave.innerHTML = '<i class="fas fa-check me-1"></i> Guardar';
+            btnSave.onclick = async function() {
+              const nuevoNombre = input.value.trim();
+              if (!nuevoNombre) {
+                mostrarNotificacion('El nombre no puede estar vacío', 'warning');
+                return;
+              }
+              if (nuevoNombre === cat) {
+                mostrarNotificacion('No realizaste ningún cambio.', 'warning');
+                editando = false;
+                renderCategoriaItem();
+                return;
+              }
+              if (categorias.some(c => c.toLowerCase() === nuevoNombre.toLowerCase() && c !== cat)) {
+                mostrarNotificacion('Ya existe una categoría con ese nombre.', 'warning');
+                return;
+              }
+              categorias = categorias.map(c => c === cat ? nuevoNombre : c);
+              productos = productos.map(p => p.categoria === cat ? {...p, categoria: nuevoNombre} : p);
+              editando = false;
+              renderCategorias();
+              renderCategoriasSelect();
+              renderProductos();
+              await guardarMenu();
+              mostrarNotificacion('Categoría modificada con éxito', 'success');
+            };
+            btnContainer.appendChild(btnSave);
+            
+            // Botón cancelar
+            const btnCancel = document.createElement('button');
+            btnCancel.className = 'btn btn-sm btn-secondary flex-grow-1';
+            btnCancel.innerHTML = '<i class="fas fa-times me-1"></i> Cancelar';
+            btnCancel.onclick = function() {
+              editando = false;
+              renderCategoriaItem();
+            };
+            btnContainer.appendChild(btnCancel);
+            
+            editForm.appendChild(btnContainer);
+            li.appendChild(editForm);
+          }
+        }
+        renderCategoriaItem();
+        ul.appendChild(li);
+      });
+    }
+
+    function renderCategoriasSelect() {
+      const select = document.getElementById('categoria-producto');
+      select.innerHTML = '<option value="">Selecciona categoría</option>';
+      // Ordenar categorías alfabéticamente
+      const categoriasOrdenadas = [...categorias].sort((a, b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
+      categoriasOrdenadas.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        select.appendChild(option);
+      });
+    }
+
+    function renderProductos() {
+      const ul = document.getElementById('lista-productos');
+      ul.innerHTML = '';
+      if (productos.length === 0) {
+        ul.innerHTML = '<li class="list-group-item text-muted">No hay productos</li>';
+        return;
+      }
+      
+      // Ordenar categorías alfabéticamente
+      const categoriasOrdenadas = [...categorias].sort((a, b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
+      categoriasOrdenadas.forEach(cat => {
+        // Productos de la categoría ordenados por precio ascendente
+        const productosCat = productos.filter(p => p.categoria === cat)
+          .sort((a, b) => a.precio - b.precio);
+        if (productosCat.length > 0) {
+          // Título de categoría
+          const catHeader = document.createElement('li');
+          catHeader.className = 'list-group-item categoria-header-admin';
+          catHeader.textContent = cat;
+          ul.appendChild(catHeader);
+          // Productos de la categoría
+          productosCat.forEach(prod => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex';
+            // ...existing code...
+            let editando = false;
+            function renderProductoItem() {
+              li.innerHTML = '';
+              if (!editando) {
+                // ...existing code...
+                const info = document.createElement('div');
+                info.className = 'producto-info';
+                const nombre = document.createElement('span');
+                nombre.className = 'producto-nombre';
+                nombre.textContent = prod.nombre;
+                info.appendChild(nombre);
+                const precio = document.createElement('span');
+                precio.className = 'producto-precio';
+                precio.textContent = `$${prod.precio.toFixed(2)}`;
+                info.appendChild(precio);
+                li.appendChild(info);
+                // ...existing code...
+                const acciones = document.createElement('div');
+                acciones.className = 'acciones-producto';
+                // ...existing code...
+                const btnEdit = document.createElement('button');
+                btnEdit.className = 'btn btn-sm btn-primary';
+                btnEdit.innerHTML = '<i class="fas fa-edit"></i>';
+                btnEdit.onclick = function() {
+                  editando = true;
+                  renderProductoItem();
+                };
+                acciones.appendChild(btnEdit);
+                // ...existing code...
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-sm btn-danger';
+                btn.innerHTML = '<i class="fas fa-trash"></i>';
+                btn.onclick = async function() {
+                  if (confirm(`¿Eliminar el producto "${prod.nombre}"?`)) {
+                    productos = productos.filter(p => p !== prod);
+                    renderProductos();
+                    await guardarMenu();
+                    mostrarNotificacion('Producto eliminado', 'danger');
+                  }
+                };
+                acciones.appendChild(btn);
+                li.appendChild(acciones);
+              } else {
+                // ...existing code...
+                const editForm = document.createElement('div');
+                editForm.className = 'edit-form';
+                // ...existing code...
+                const inputNombre = document.createElement('input');
+                inputNombre.type = 'text';
+                inputNombre.value = prod.nombre;
+                inputNombre.className = 'form-control edit-input mb-2';
+                inputNombre.placeholder = 'Nombre del producto';
+                editForm.appendChild(inputNombre);
+                // ...existing code...
+                const inputPrecio = document.createElement('input');
+                inputPrecio.type = 'number';
+                inputPrecio.value = prod.precio;
+                inputPrecio.className = 'form-control edit-input mb-2';
+                inputPrecio.placeholder = 'Precio';
+                inputPrecio.min = 0;
+                inputPrecio.step = 0.01;
+                editForm.appendChild(inputPrecio);
+                // ...existing code...
+                const selectCat = document.createElement('select');
+                selectCat.className = 'form-select edit-input mb-2';
+                categorias.forEach(c => {
+                  const option = document.createElement('option');
+                  option.value = c;
+                  option.textContent = c;
+                  option.selected = c === prod.categoria;
+                  selectCat.appendChild(option);
+                });
+                editForm.appendChild(selectCat);
+                // ...existing code...
+                const btnContainer = document.createElement('div');
+                btnContainer.className = 'd-flex gap-2 w-100';
+                // ...existing code...
+                const btnSave = document.createElement('button');
+                btnSave.className = 'btn btn-sm btn-success flex-grow-1';
+                btnSave.innerHTML = '<i class="fas fa-check me-1"></i> Guardar';
+                btnSave.onclick = async function() {
+                  const nuevoNombre = inputNombre.value.trim();
+                  const nuevoPrecio = parseFloat(inputPrecio.value);
+                  const nuevaCategoria = selectCat.value;
+                  if (!nuevoNombre || isNaN(nuevoPrecio)) {
+                    mostrarNotificacion('Datos incompletos', 'warning');
+                    return;
+                  }
+                  prod.nombre = nuevoNombre;
+                  prod.precio = nuevoPrecio;
+                  prod.categoria = nuevaCategoria;
+                  editando = false;
+                  renderProductos();
+                  await guardarMenu();
+                  mostrarNotificacion('Producto modificado con éxito', 'success');
+                };
+                btnContainer.appendChild(btnSave);
+                // ...existing code...
+                const btnCancel = document.createElement('button');
+                btnCancel.className = 'btn btn-sm btn-secondary flex-grow-1';
+                btnCancel.innerHTML = '<i class="fas fa-times me-1"></i> Cancelar';
+                btnCancel.onclick = function() {
+                  editando = false;
+                  renderProductoItem();
+                };
+                btnContainer.appendChild(btnCancel);
+                editForm.appendChild(btnContainer);
+                li.appendChild(editForm);
+              }
+            }
+            renderProductoItem();
+            ul.appendChild(li);
+          });
+        }
+      });
+    }
+
+    // Inicializar
+    cargarMenu();
+  </script>
+</body>
+</html>

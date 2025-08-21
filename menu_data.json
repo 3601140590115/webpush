@@ -1,0 +1,83 @@
+{
+  "categorias": [
+    "Crepas Clasicas 😊",
+    "Crepas Especiales 🚀🧑🏻‍🚀"
+  ],
+  "productos": [
+    {
+      "nombre": "Chocolate Hershey's",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 20
+    },
+    {
+      "nombre": "Leche Condensada",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 20
+    },
+    {
+      "nombre": "Mermelada De Fresas 🍓",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 20
+    },
+    {
+      "nombre": "Miel 🍯",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 20
+    },
+    {
+      "nombre": "Nutella, Cajeta o Crema de Mani Con Banano 🍌",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 25
+    },
+    {
+      "nombre": "Nutella, Cajeta o Crema de Mani Con Fresas 🍓",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 30
+    },
+    {
+      "nombre": "Nutella, Cajeta o Crema de Mani Con Melocotón 🍑",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 30
+    },
+    {
+      "nombre": "Nutella, Cajeta o Crema de Mani Con Kiwi 🥝",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 35
+    },
+    {
+      "nombre": "Queso Crema Con Mermelada De Manzana y Canela 🍎",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 25
+    },
+    {
+      "nombre": "Queso Crema Con Mermelada De Piña y 🍍🥥",
+      "categoria": "Crepas Clasicas 😊",
+      "precio": 25
+    },
+    {
+      "nombre": "Explosión Frutal 🍌🍓🍑🥝 Nutella, Banano, Fresas, Melocotón y Kiwi",
+      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
+      "precio": 40
+    },
+    {
+      "nombre": "Lady Blue.  Nutella, Queso Crema, Queso Mozarella, Leche Condensada y Fresas 🧀 🍓",
+      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
+      "precio": 40
+    },
+    {
+      "nombre": "Dulce Tentación.  Dulce De Leche, Mermelada De Manzana y Canela, Melocotón y Leche Condensada 🍎 🍑",
+      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
+      "precio": 40
+    },
+    {
+      "nombre": "Frutos Rojos 🍓🫐🍇. Nutella, Mermelada De Fresas, Mermelada De Mora y Fresas Frescas",
+      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
+      "precio": 40
+    },
+    {
+      "nombre": "L'AMOUR.  Crema De Mani, Galletas Oreo, Melocotones y Leche Condensada 🥜 🍑",
+      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
+      "precio": 40
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instalar App</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { font-family: 'Inter', Arial, sans-serif; background: #FFF8F0; color: #4A3C31; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+    .container { background: #fff; padding: 2em; border-radius: 1em; box-shadow: 0 0.5em 2em rgba(216,164,94,0.15); text-align: center; }
+    #installBtn { display: none; margin-top: 2em; padding: 0.7em 2em; font-size: 1.1em; background: #E6B85C; color: #fff; border: none; border-radius: 0.5em; cursor: pointer; }
+    #installMsg { margin-top: 1em; color: #C48F3A; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Instala nuestra App</h1>
+    <p>Para una mejor experiencia, instala la aplicación en tu dispositivo.</p>
+    <button id="installBtn">Instalar App</button>
+    <div id="installMsg"></div>
+  </div>
+  <script>
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installBtn').style.display = 'inline-block';
+      document.getElementById('installMsg').textContent = '';
+    });
+    document.getElementById('installBtn').addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            document.getElementById('installMsg').textContent = '¡Gracias por instalar la app!';
+          } else {
+            document.getElementById('installMsg').textContent = 'Instalación cancelada.';
+          }
+          deferredPrompt = null;
+          document.getElementById('installBtn').style.display = 'none';
+        });
+      }
+    });
+    // Registro del Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>

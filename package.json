@@ -1,0 +1,19 @@
+{
+  "name": "nodewebpush",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "selfsigned": "^3.0.1",
+    "web-push": "^3.6.7",
+    "ws": "^8.18.3"
+  }
+}

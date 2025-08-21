@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activar Notificaciones</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #E6B85C;
+      --primary-dark: #C48F3A;
+      --secondary-color: #4A3C31;
+      --light-bg: #FFF8F0;
+      --card-bg: #FFFFFF;
+      --accent-color: #FF7E5F;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      min-height: 100vh;
+    }
+    
+    .subscription-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1050;
+      padding: 15px;
+    }
+    
+    .subscription-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+      animation: fadeInUp 0.4s ease-out;
+    }
+    
+    .subscription-header {
+      background: linear-gradient(135deg, var(--primary-color), #6a4bff);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .subscription-body {
+      padding: 25px;
+    }
+    
+    .subscription-footer {
+      padding: 15px 25px;
+      background-color: #f8f9fa;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+    
+    .form-control {
+      border-radius: 8px;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      transition: all 0.3s;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(74, 107, 255, 0.25);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    
+    .btn-success {
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-weight: 500;
+    }
+    
+    .notification-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: white;
+    }
+    
+    .success-icon {
+      color: var(--success-color);
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Modal de suscripción -->
+  <div id="panelSuscripcion" class="subscription-modal">
+    <!-- Formulario de suscripción -->
+    <div id="formSuscripcion" class="subscription-card">
+      <div class="subscription-header">
+        <i class="fas fa-bell notification-icon pulse"></i>
+        <h2 class="mb-0">Crear Suscripción</h2>
+      </div>
+      <div class="subscription-body">
+        <p class="text-muted mb-4">Recibe notificaciones sobre ofertas y promociones</p>
+        <form id="subscriptionForm">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Tu nombre completo</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono (8 dígitos)</label>
+            <div class="input-group">
+              <span class="input-group-text">+502</span>
+              <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" pattern="[0-9]{8}" required>
+            </div>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary" id="btnSuscribir">
+              <i class="fas fa-bell me-2"></i> Subscribirme
+            </button>
+          </div>
+        </form>
+      </div>
+     
+    </div>
+    
+    <!-- Confirmación de suscripción -->
+    <div id="confirmacionSuscrito" class="subscription-card" style="display: none;">
+      <div class="subscription-header">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h2 class="mb-0">¡Listo!</h2>
+      </div>
+      <div class="subscription-body text-center">
+        <p class="lead">Notificaciones activadas correctamente</p>
+        <p class="text-muted">Ahora recibirás alertas sobre ofertas y promociones</p>
+      </div>
+      <div class="subscription-footer">
+        <button id="btnCerrar" class="btn btn-success">
+          <i class="fas fa-check me-2"></i> Continuar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div id="cryptoError" class="alert alert-danger text-center mt-4 mx-3" style="display: none;">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    Error: No se pudo cargar la librería de cifrado. Contacta al administrador.
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    const COOKIE_NAME = 'usuario_tarjeta';
+    
+    // Función para establecer cookie
+    function setCookie(name, value, days) {
+      let expires = '';
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = `; expires=${date.toUTCString()}`;
+      }
+      document.cookie = `${name}=${value || ''}${expires}; path=/`;
+    }
+    
+    // Codificar datos para cookie
+    function encodeData(data) {
+      return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    }
+    
+    // Obtener cookie
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    // Suscribir a notificaciones push
+    async function suscribirPush(nombre, telefono) {
+      if (!('serviceWorker' in navigator)) {
+        throw new Error('Service Worker no soportado');
+      }
+      try {
+  const swReg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+        const publicKey = await fetch('/vapidPublicKey').then(r => r.text());
+        const existing = await swReg.pushManager.getSubscription();
+        if (existing) await existing.unsubscribe();
+        const subscription = await swReg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(publicKey)
+        });
+        const body = { nombre, telefono: '+502' + telefono, subscription };
+        console.log('Enviando suscripción:', body);
+        const response = await fetch('/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        return true;
+      } catch (error) {
+        console.error('Error en suscribirPush:', error);
+        throw error;
+      }
+    }
+    
+    // Convertir clave pública
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+    }
+    
+    // Comprobar si ya está suscrito
+    const cookie = getCookie(COOKIE_NAME);
+    if (cookie) {
+      window.location.href = 'index.html';
+    } else {
+      // Configurar evento del formulario
+      document.getElementById('subscriptionForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const nombre = e.target.nombre.value.trim();
+        const telefono = e.target.telefono.value.trim();
+        const btnSuscribir = document.getElementById('btnSuscribir');
+        if (!nombre) {
+          alert('Por favor, ingresa tu nombre.');
+          return;
+        }
+        if (!telefono.match(/^\d{8}$/)) {
+          alert('Por favor, ingresa un teléfono válido de 8 dígitos.');
+          return;
+        }
+        btnSuscribir.disabled = true;
+        btnSuscribir.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Procesando...';
+        try {
+          const usuario = { nombre, telefono: '+502' + telefono };
+          const datosCodificados = encodeData(usuario);
+          setCookie(COOKIE_NAME, datosCodificados, 7);
+          await suscribirPush(nombre, telefono);
+          document.getElementById('formSuscripcion').style.display = 'none';
+          document.getElementById('confirmacionSuscrito').style.display = 'block';
+        } catch (error) {
+          alert('Error al activar notificaciones: ' + error.message);
+          btnSuscribir.disabled = false;
+          btnSuscribir.innerHTML = '<i class="fas fa-bell me-2"></i> Activar Notificaciones';
+        }
+      });
+      
+      // Configurar botón de cierre
+      document.getElementById('btnCerrar').addEventListener('click', function() {
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
+</body>
+</html>
