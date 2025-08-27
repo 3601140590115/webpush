@@ -1,335 +1,491 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menú Gourmet</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  /* Scrollbar personalizado para productos */
-  .products-container::-webkit-scrollbar {
-    width: 10px;
-    background: #222;
-  }
-  .products-container::-webkit-scrollbar-thumb {
-    background: #ff003c;
-    border-radius: 8px;
-    box-shadow: 0 0 8px 2px #ff003c;
-  }
-  .products-container::-webkit-scrollbar-thumb:hover {
-    background: #ff0055;
-    box-shadow: 0 0 12px 4px #ff0055;
-  }
-  .products-container {
-    scrollbar-color: #ff003c #222;
-    scrollbar-width: thin;
-  }
-  :root {
-    --primary-color: #ff0000;
-    --primary-dark: #b30000;
-    --secondary-color: #111;
-    --text-color: #fff;
-    --header-height: 4.5rem;
-    --category-height: 3.5rem;
-    --slider-height: 3.2rem;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Inter', sans-serif;
-    background: var(--secondary-color);
-    color: var(--text-color);
-    overflow: hidden; /* nada de scroll */
-    font-size: 89%;
-  }
-
-  .app-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    max-width: 581px;
-    margin: 0 auto;
-  }
-
-  /* Header */
-  .menu-header {
-    height: var(--header-height);
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 10;
-  }
-  .menu-title {
-    font-size: 1.31rem;
-    font-weight: 700;
-    position: relative;
-  }
-  .menu-title::after {
-    content: '';
-    position: absolute;
-    bottom: -0.4rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2.5rem;
-    height: 0.2rem;
-    background: var(--primary-color);
-    border-radius: 3px;
-  }
-  .fidelidad-btn-top {
-  position: absolute;
-  right: 1rem;
-  width: 2.19rem;
-  height: 2.19rem;
-  border-radius: 50%;
-  background: var(--primary-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 1.09rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  }
-  .fidelidad-btn-top:hover {
-  background: var(--primary-dark);
-  /* No scale, mantener tamaño fijo */
-  }
-
-  /* Category */
-  .category-header-panel {
-    height: var(--category-height);
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    border-bottom: 2px dashed var(--primary-color);
-    flex-shrink: 0;
-    font-size: 0.81rem;
-  }
-
-  /* Products container */
-  .products-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto; /* permite scroll vertical */
-    padding: 0.5rem 1rem;
-  }
-
-  .product-item {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.37rem 0.55rem;
-    border-bottom: 1px solid var(--primary-color);
-    border-radius: 0.5rem;
-    background: #111;
-    margin-bottom: 0.3rem;
-    align-items: center;
-    font-size: 0.81rem;
-  }
-
-  .product-price {
-    background: #000;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    padding: 0.065rem 0.42rem;
-    border-radius: 0.6rem;
-    font-weight: 700;
-    font-size: 0.72rem;
-    min-width: 3.23rem;
-    min-height: 1.54rem;
-    max-width: 3.23rem;
-    max-height: 1.54rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: none;
-    transition: border-color 0.2s, color 0.2s, background 0.2s;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
-  .product-item:hover .product-price {
-    background: #111;
-    color: var(--primary-dark);
-    border-color: var(--primary-dark);
-    /* No scale, mantener tamaño fijo */
-  }
-
-  .product-item > span:first-child {
-    flex: 1 1 auto;
-    min-width: 0;
-    margin-right: 0.5rem;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-
-  /* Slider */
-  .slider-controls {
-    height: var(--slider-height);
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .slider-arrow {
-  width: 1.30rem;
-  height: 1.30rem;
-  border-radius: 50%;
-  background: #000;
-  color: var(--primary-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 2px solid var(--primary-color);
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  box-shadow: none;
-  font-size: 0.82rem;
-  }
-
-  .slider-arrow:disabled {
-  background: #222;
-  border-color: #444;
-  color: #444;
-  cursor: not-allowed;
-  opacity: 0.5;
-  }
-
-  .empty-category {
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: auto;
-    color: #aaa;
-    color: #fff;
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú con Categorías (Modal Mejorado)</title>
 </head>
 <body>
-<div class="app-container">
-  <div class="menu-header">
-    <h1 class="menu-title">Menú</h1>
-    <div class="fidelidad-btn-top"><i class="fas fa-id-card"></i></div>
+  <div class="app-container">
+    <header class="header">
+  <h1 id="header-title">Menú</h1>
+  <button id="btn-categorias" class="btn-modal" aria-label="Categorías">| | |</button>
+    </header>
+
+    <div class="barra-inferior" style="margin-bottom:0;">
+      <input type="text" id="busqueda" placeholder="Buscar producto..." autocomplete="off">
+    </div>
+    <div class="main-content">
+      <main id="productos" class="products-container"></main>
+    </div>
+
+    <!-- Barra de paginación anclada en la parte inferior (cambia categorías) -->
+    <div id="pagination-bar" class="pagination-bar" aria-label="Paginación de categorías"></div>
+
+    <!-- Panel de detalle de producto (se abre al hacer click en un producto) -->
+    <aside id="product-panel" class="product-panel" aria-hidden="true">
+      <button id="close-panel" class="close-panel" aria-label="Cerrar">×</button>
+      <div class="product-info">
+        <div class="panel-img-wrapper">
+          <img id="panel-img" src="imagenes/categorias/default/default.png" alt="imagen" />
+        </div>
+        <h3 id="panel-name">Nombre del producto</h3>
+        <p id="panel-price">Q0.00</p>
+      </div>
+    </aside>
+
+    <div id="modal-categorias" class="modal">
+      <div class="modal-content">
+        <span id="cerrar-modal" class="close">&times;</span>
+        <h2>Selecciona una Categoría</h2>
+        <input type="text" id="busqueda-categoria" placeholder="Buscar categoría..." autocomplete="off">
+        <ul id="lista-categorias"></ul>
+      </div>
+    </div>
+
+  <!-- (Se conserva sólo el panel lateral pequeño para detalle) -->
   </div>
-  <div class="category-header-panel" id="categoryHeader">Cargando...</div>
-  <div class="products-container" id="productsContainer"></div>
-  <div class="slider-controls" id="sliderControls"></div>
-</div>
 
-<script>
-  async function renderMenuCliente() {
-    const productsContainer = document.getElementById('productsContainer');
-    const sliderControls = document.getElementById('sliderControls');
-    const categoryHeader = document.getElementById('categoryHeader');
+  <script type="module">
+    // --- helpers ---
+    function normalizar(str) { return (str||'').toLowerCase().trim(); }
 
-    try {
-      // Simulación de API
-      const data = await fetch('/menu_data').then(r=>r.json());
+    function resaltarTexto(texto, palabras) {
+      let resultado = texto || '';
+      palabras.forEach(palabra => {
+        if (palabra.length > 3) {
+          const regex = new RegExp(palabra, 'gi');
+          resultado = resultado.replace(regex, match => `<mark>${match}</mark>`);
+        }
+      });
+      return resultado;
+    }
+
+    function filtrarProductos(productos, query) {
+      const queryNorm = normalizar(query);
+      if (!queryNorm) return productos;
+      const palabras = queryNorm.split(/\s+/).filter(p => p.length > 3);
+      if (!palabras.length) return productos;
+
+      return productos.map(p => {
+        const texto = normalizar(`${p.nombre} ${p.categoria}`);
+        let coincidencias = 0;
+        palabras.forEach(palabra => { if (texto.includes(palabra)) coincidencias++; });
+        return {
+          ...p,
+          coincidencias,
+          nombreResaltado: resaltarTexto(p.nombre, palabras)
+        };
+      }).filter(p => p.coincidencias > 0).sort((a,b)=>b.coincidencias - a.coincidencias);
+    }
+
+    // --- main ---
+    async function main() {
+      const res = await fetch("menu_data.json");
+      const data = await res.json();
       const categorias = data.categorias || [];
       const productos = data.productos || [];
+      let categoriaSeleccionada = categorias[0] || "";
 
-      if (!categorias.length) {
-        productsContainer.innerHTML = '<div class="empty-category">No hay categorías</div>';
-        return;
+      const listaCategorias = document.getElementById("lista-categorias");
+      const contenedorProductos = document.getElementById("productos");
+      const inputBusqueda = document.getElementById("busqueda");
+      const inputBusquedaCategoria = document.getElementById("busqueda-categoria");
+
+      const modal = document.getElementById("modal-categorias");
+      const btnModal = document.getElementById("btn-categorias");
+      const cerrarModal = document.getElementById("cerrar-modal");
+      const paginationBar = document.getElementById('pagination-bar');
+  const headerTitle = document.getElementById('header-title');
+
+
+  const productPanel = document.getElementById('product-panel');
+  const panelName = document.getElementById('panel-name');
+  const panelPrice = document.getElementById('panel-price');
+  const closePanelBtn = document.getElementById('close-panel');
+
+      // add detalle paragraph to side panel if not present
+      let panelDetalle = document.getElementById('panel-detalle');
+      if (!panelDetalle) {
+        panelDetalle = document.createElement('p');
+        panelDetalle.id = 'panel-detalle';
+        panelDetalle.style.marginTop = '6px';
+        panelDetalle.style.fontSize = '0.95rem';
+        panelDetalle.style.color = '#444';
+        document.querySelector('.product-info').appendChild(panelDetalle);
       }
 
-      const categoryIcons = {
-        "Entradas": "fa-leaf",
-        "Platos Principales": "fa-utensils",
-        "Postres": "fa-ice-cream",
-        "Bebidas": "fa-glass-martini",
-        "Especiales": "fa-star"
-      };
-
-  // Ahora: solo navegación por categoría, sin paginación interna
-  let categoriaActual = 0;
-
-      function renderPagina() {
-        productsContainer.innerHTML = '';
-        if (!categorias.length) {
-          productsContainer.innerHTML = '<div class="empty-category">No hay productos</div>';
-          return;
-        }
-        const cat = categorias[categoriaActual];
-        const iconClass = categoryIcons[cat] || '';
-
-        // Botones de categoría
-        const prevCatBtn = document.createElement('button');
-        prevCatBtn.className = 'slider-arrow';
-        prevCatBtn.style.marginRight = '0.5rem';
-        prevCatBtn.innerHTML = '<i class="fas fa-angle-double-left"></i>';
-        prevCatBtn.disabled = categoriaActual === 0;
-        prevCatBtn.onclick = () => {
-          if (categoriaActual > 0) {
-            categoriaActual--;
-            renderPagina();
-          }
-        };
-
-        const nextCatBtn = document.createElement('button');
-        nextCatBtn.className = 'slider-arrow';
-        nextCatBtn.style.marginLeft = '0.5rem';
-        nextCatBtn.innerHTML = '<i class="fas fa-angle-double-right"></i>';
-        nextCatBtn.disabled = categoriaActual >= (categorias.length - 1);
-        nextCatBtn.onclick = () => {
-          if (categoriaActual < categorias.length - 1) {
-            categoriaActual++;
-            renderPagina();
-          }
-        };
-
-        // Renderizar header de categoría con botones
-        categoryHeader.innerHTML = '';
-        categoryHeader.appendChild(prevCatBtn);
-        const catTitle = document.createElement('span');
-        catTitle.innerHTML = (iconClass ? `<i class="fas ${iconClass}"></i> ` : '') + cat;
-        categoryHeader.appendChild(catTitle);
-        categoryHeader.appendChild(nextCatBtn);
-
-        // Mostrar todos los productos de la categoría
-        const prods = productos.filter(p => p.categoria === cat);
-        if (!prods.length) {
-          productsContainer.innerHTML = '<div class="empty-category">No hay productos en esta categoría</div>';
-        } else {
-          prods.forEach(prod => {
-            const item = document.createElement('div');
-            item.className = 'product-item';
-            item.innerHTML = `<span>${prod.nombre}</span><span class='product-price'>$${prod.precio.toFixed(2)}</span>`;
-            productsContainer.appendChild(item);
-          });
-        }
-
-        // Sin controles de página, solo info de categoría
-        sliderControls.innerHTML = '';
-        const info = document.createElement('span');
-        info.style.color = '#fff';
-        info.textContent = `Categoría ${categoriaActual + 1} de ${categorias.length}`;
-        sliderControls.appendChild(info);
+      function openProductPanel({ name, price, img, detalle }) {
+        panelName.textContent = name;
+        panelPrice.textContent = `Q${price}`;
+        panelDetalle.textContent = detalle || '';
+        const panelImg = document.getElementById('panel-img');
+        panelImg.src = img || 'imagenes/categorias/default/default.png';
+        panelImg.alt = name;
+        productPanel.setAttribute('aria-hidden', 'false');
+        productPanel.classList.add('open');
       }
 
-      renderPagina();
-      window.addEventListener('resize', renderPagina);
-    } catch(err) {
-      console.error(err);
-      productsContainer.innerHTML = '<div class="empty-category">Error al cargar el menú</div>';
-    }
+      function closeProductPanel() {
+        productPanel.setAttribute('aria-hidden', 'true');
+        productPanel.classList.remove('open');
+      }
+
+
+  closePanelBtn.addEventListener('click', closeProductPanel);
+
+      // click outside panel closes it
+      window.addEventListener('click', (e) => {
+  if (productPanel.classList.contains('open') && !productPanel.contains(e.target) && !e.target.closest('.producto-item')) closeProductPanel();
+  if (e.target === modal) modal.style.display = 'none';
+      });
+
+      // Cerrar modal de categorias y panel lateral si se hace scroll en el contenedor de productos
+      // (usa closeAllOverlays para centralizar la lógica)
+      contenedorProductos.addEventListener('scroll', () => {
+        closeAllOverlays();
+      }, { passive: true });
+
+      // Cerrar al detectar rueda hacia abajo (mouse) o swipe hacia abajo (touch)
+      function closeAllOverlays() {
+        if (modal.style.display === 'flex') modal.style.display = 'none';
+        if (productPanel.classList.contains('open')) closeProductPanel();
+      }
+
+      // rueda del mouse / touchpad
+      contenedorProductos.addEventListener('wheel', (e) => {
+  // vertical
+  if (e.deltaY > 8) {
+    closeAllOverlays();
+    return;
   }
+  // horizontal (trackpad o shift+wheel)
+  if (Math.abs(e.deltaX) > 12) {
+    closeAllOverlays();
+  }
+}, { passive: true });
 
-  document.addEventListener('DOMContentLoaded', ()=>renderMenuCliente());
-</script>
+      // Detectar swipe vertical u horizontal para cerrar overlays
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchMoved = false;
+
+      // Touch start
+      contenedorProductos.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        touchStartX = t.clientX;
+        touchStartY = t.clientY;
+        touchMoved = false;
+      }, { passive: true });
+
+      // Touch move
+      contenedorProductos.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+
+        // Detectar swipe horizontal mayor a 40px o vertical mayor a 60px
+        if (!touchMoved) {
+          if (Math.abs(dx) > 40 || Math.abs(dy) > 60) {
+            closeAllOverlays();
+            touchMoved = true; // evita que se cierre varias veces
+          }
+        }
+      }, { passive: true });
+
+      // Touch end / cancel
+      contenedorProductos.addEventListener('touchend', () => {
+        touchStartX = 0;
+        touchStartY = 0;
+        touchMoved = false;
+      });
+      contenedorProductos.addEventListener('touchcancel', () => {
+        touchStartX = 0;
+        touchStartY = 0;
+        touchMoved = false;
+      });
+
+      // Mostrar modal de categorias al cargar
+      modal.style.display = "flex";
+
+      btnModal.addEventListener("click", () => modal.style.display = "flex");
+      cerrarModal.addEventListener("click", () => modal.style.display = "none");
+
+      function renderCategorias(filtro="") {
+        let listaFiltrada = categorias.filter(cat => normalizar(cat).includes(normalizar(filtro)));
+        listaCategorias.innerHTML = listaFiltrada.map(cat =>
+          `<li class="${cat===categoriaSeleccionada ? 'activo' : ''}" data-cat="${cat}">${cat}</li>`
+        ).join("");
+
+        listaCategorias.querySelectorAll('li').forEach(li =>
+          li.addEventListener('click', () => {
+            categoriaSeleccionada = li.dataset.cat;
+            inputBusqueda.value = "";
+            inputBusquedaCategoria.value = "";
+            renderProductos();
+            renderCategorias("");
+            modal.style.display = "none";
+          })
+        );
+      }
+
+      function renderPagination() {
+        if (!Array.isArray(categorias) || categorias.length === 0) { paginationBar.innerHTML = ''; return; }
+        const idx = categorias.indexOf(categoriaSeleccionada);
+        const total = categorias.length;
+        paginationBar.innerHTML = `
+          <button class="page-btn" data-action="prev" ${idx<=0?'disabled':''} aria-label="Anterior">◀</button>
+          <span class="page-label">${idx+1}/${total}</span>
+          <button class="page-btn" data-action="next" ${idx>=total-1?'disabled':''} aria-label="Siguiente">▶</button>
+        `;
+        const btnPrev = paginationBar.querySelector('.page-btn[data-action="prev"]');
+        const btnNext = paginationBar.querySelector('.page-btn[data-action="next"]');
+        if (btnPrev) btnPrev.addEventListener('click', () => changeCategoryByIndex(idx-1));
+        if (btnNext) btnNext.addEventListener('click', () => changeCategoryByIndex(idx+1));
+      }
+
+      function changeCategoryByIndex(i) {
+        if (!categorias[i]) return;
+        categoriaSeleccionada = categorias[i];
+        inputBusqueda.value = '';
+        inputBusquedaCategoria.value = '';
+        renderProductos();
+        renderCategorias('');
+        renderPagination();
+        modal.style.display = 'none';
+  // actualizar título
+  headerTitle.textContent = categoriaSeleccionada || 'Menú';
+  fitHeaderTitle();
+      }
+
+      inputBusquedaCategoria.addEventListener("input", () => renderCategorias(inputBusquedaCategoria.value));
+  inputBusqueda.addEventListener("input", renderProductos);
+
+      function renderProductos() {
+        let lista = productos;
+        const busqueda = inputBusqueda.value.trim();
+        if (busqueda.length > 0) lista = filtrarProductos(lista, busqueda);
+        else lista = productos.filter(p => p.categoria === categoriaSeleccionada);
+
+        // actualizar título dinámicamente
+        if (busqueda.length > 0) {
+          headerTitle.textContent = `Resultados: "${busqueda}"`;
+        } else {
+          headerTitle.textContent = categoriaSeleccionada || 'Menú';
+        }
+        fitHeaderTitle();
+
+
+      // Ajusta el tamaño de la fuente del título para que quede en una sola línea
+      function fitHeaderTitle() {
+        const el = headerTitle;
+        if (!el) return;
+        // reset
+        el.style.fontSize = '';
+        const parentWidth = el.getBoundingClientRect().width;
+        // measure by creating a clone
+        const clone = el.cloneNode(true);
+        clone.style.position = 'absolute';
+        clone.style.visibility = 'hidden';
+        clone.style.whiteSpace = 'nowrap';
+        clone.style.fontSize = window.getComputedStyle(el).fontSize;
+        document.body.appendChild(clone);
+        let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+        const minSize = 12; // px
+        // shrink until fits within parent (or min size)
+        while (clone.getBoundingClientRect().width > parentWidth && fontSize > minSize) {
+          fontSize -= 1;
+          clone.style.fontSize = fontSize + 'px';
+        }
+        el.style.fontSize = fontSize + 'px';
+        document.body.removeChild(clone);
+      }
+
+      // recalcular al redimensionar ventana
+      window.addEventListener('resize', () => fitHeaderTitle(), { passive: true });
+        contenedorProductos.innerHTML = lista.length
+          ? "<ul>" + lista.map((p, idx) => `
+            <li class="producto-item" data-name="${p.nombre}" data-price="${p.precio || 0}" data-img="${(p.imagen && p.imagen.ruta) || 'imagenes/categorias/default/default.png'}" data-detalle="${(p.detalle||'').replace(/\"/g,'&quot;')}" data-idx="${idx}">
+              <span class="producto-nombre">${p.nombreResaltado || p.nombre}</span>
+              <span class="producto-precio">Q${p.precio || 0}</span>
+            </li>`).join("") + "</ul>"
+          : "No hay productos disponibles";
+
+        contenedorProductos.querySelectorAll('.producto-item').forEach(li => {
+          li.addEventListener('click', () => {
+            const name = li.dataset.name;
+            const price = li.dataset.price;
+            const img = li.dataset.img;
+            const detalle = li.dataset.detalle;
+            // abrir solo el panel lateral
+            openProductPanel({ name, price, img, detalle });
+          });
+        });
+      }
+
+      renderCategorias();
+      renderProductos();
+      renderPagination();
+    }
+
+    main();
+  </script>
+
+  <style>
+  :root { --pagination-height: 32px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; font-family:Arial, sans-serif; font-size:1.1rem; overflow:hidden; background:#f0f0f0; }
+
+  /* Reservar menos espacio inferior para la barra de paginación fija */
+  .app-container { display:flex; flex-direction:column; height:100%; padding-bottom: calc(var(--pagination-height) + 4px); }
+    .header { background:#222; color:#fff; text-align:center; padding:12px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.2); display:flex; justify-content:space-between; align-items:center; }
+    .btn-modal { padding:6px 12px; font-size:1rem; cursor:pointer; border:none; border-radius:5px; background:#ff0000; color:#fff; }
+
+    /* Header title: evitar desbordes y permitir ajuste automático en una sola línea */
+    #header-title {
+      margin: 0 12px 0 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 120px); /* dejar espacio para el botón */
+      font-size: 1.15rem; /* valor base */
+      transition: font-size 120ms ease;
+      flex: 1 1 auto;
+      text-align: left;
+    }
+
+    .main-content { display:flex; flex:1; overflow:hidden; padding:10px; }
+  /* Contenedor principal de productos: margen interno ajustado para no desbordar */
+  .products-container { flex:1; overflow-y:auto; background:#fff; border-radius:8px; padding:15px; box-shadow:0 2px 8px rgba(0,0,0,0.12); padding-bottom:20px; }
+    .products-container ul { list-style:none; }
+    .products-container li.producto-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px;
+      border-bottom: 1px solid #ddd;
+      color: #333;
+      font-size: 1rem;
+    }
+    .products-container li.producto-item:last-child { border-bottom: none; }
+    .producto-nombre {
+  flex: 1 1 auto;
+  text-align: left;
+  margin-right: 10px;
+      word-break: break-word;
+    }
+    .producto-precio {
+      flex: 0 0 auto;
+      min-width: 80px;
+      max-width: 120px;
+      text-align: right;
+      font-weight: bold;
+      font-family: monospace;
+      letter-spacing: 1px;
+      background: #f7f7f7;
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-left: 8px;
+    }
+
+    .barra-inferior { flex-shrink:0; padding:10px 20px; background:#222; display:flex; justify-content:center; }
+    .barra-inferior input { width:100%; padding:10px; border-radius:6px; border:none; outline:none; font-size:1rem; }
+
+    mark { background:#ff0; color:#000; padding:0 2px; border-radius:2px; }
+
+    /* Barra de paginación anclada abajo */
+    .pagination-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+  bottom: 2px; /* separación muy reducida desde el borde inferior */
+  height: var(--pagination-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+      z-index: 1100;
+      pointer-events: auto;
+  padding: 0 4px;
+      box-sizing: border-box;
+      /* fondo semitransparente para que se integre con la UI sin ocultar totalmente */
+      backdrop-filter: blur(4px);
+    }
+    .pagination-bar .page-btn {
+      background: #fff;
+      color: #222;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 4px 6px;
+      min-width: 28px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      font-weight: 600;
+    }
+    .pagination-bar .page-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      padding: 0 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #222;
+      background: rgba(255,255,255,0.95);
+      border-radius: 4px;
+      border: 1px solid transparent;
+    }
+    .pagination-bar .page-btn[disabled] { opacity: 0.4; cursor: default; }
+    .pagination-bar .page-btn.activo {
+      background: #ff0000;
+      color: #fff;
+      border-color: #ff0000;
+    }
+
+    /* Panel lateral/ inferior para detalles del producto */
+    .product-panel {
+      position: fixed;
+      right: 12px;
+      bottom: calc(var(--pagination-height) + 24px);
+      width: 260px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+      transform: translateY(12px) scale(0.98);
+      opacity: 0;
+      transition: transform 180ms ease, opacity 180ms ease;
+      z-index: 1200;
+      padding: 12px 12px 16px 12px;
+      pointer-events: none;
+    }
+  .panel-img-wrapper { width: 100%; margin-bottom:8px; }
+  .panel-img-wrapper img { width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; border-radius:6px; display:block; }
+    .product-panel.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .product-panel .close-panel {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .product-panel .product-info h3 { margin: 6px 0; font-size: 1.05rem; }
+    .product-panel .product-info p { margin: 0; font-weight:700; font-family: monospace; }
+
+    .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+    .modal-content { background:#fff; padding:20px; border-radius:8px; width:300px; max-height:80%; display:flex; flex-direction:column; }
+    .modal-content h2 { margin-bottom:10px; text-align:center; }
+    #busqueda-categoria { padding:8px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; }
+    #lista-categorias { list-style:none; overflow-y:auto; flex:1; }
+    #lista-categorias li { padding:10px; margin-bottom:5px; cursor:pointer; border-radius:5px; transition:0.2s; background:#eee; }
+    #lista-categorias li:hover, #lista-categorias li.activo { background:#ff0000; color:#fff; }
+    .close { position:absolute; top:15px; right:20px; font-size:1.5rem; cursor:pointer; }
+  </style>
 </body>
 </html>

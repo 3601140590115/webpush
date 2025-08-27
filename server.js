@@ -59,6 +59,21 @@ app.post('/menu_data', (req, res) => {
 });
 
 // --- Configuración de web-push ---
+// Cargar datos desde data.json
+const DATA_FILE = path.join(__dirname, 'data.json');
+let datos = { usuarios: [], premios: [], admin: { usuario: '', password: '' } };
+try {
+  if (fs.existsSync(DATA_FILE)) {
+    const raw = fs.readFileSync(DATA_FILE, 'utf8');
+    datos = JSON.parse(raw);
+  }
+} catch (e) {
+  console.error('Error cargando data.json:', e);
+}
+
+function guardarDatos() {
+  fs.writeFileSync(DATA_FILE, JSON.stringify(datos, null, 2), 'utf8');
+}
 // Generar claves VAPID automáticamente si no existen
 const KEYS_FILE = path.join(__dirname, 'webpush-keys.js');
 if (!fs.existsSync(KEYS_FILE)) {
