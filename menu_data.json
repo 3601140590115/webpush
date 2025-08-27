@@ -1,83 +1,92 @@
 {
   "categorias": [
-    "Crepas Clasicas 😊",
-    "Crepas Especiales 🚀🧑🏻‍🚀"
+    "Crepas Clasicas",
+    "Crepas Especiales",
+    "Bebidas Calientes",
+    "Bebidas Frias",
+    "Postres",
+    "Sandwiches",
+    "Ensaladas",
+    "Snacks"
   ],
   "productos": [
-    {
-      "nombre": "Chocolate Hershey's",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 20
-    },
-    {
-      "nombre": "Leche Condensada",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 20
-    },
-    {
-      "nombre": "Mermelada De Fresas 🍓",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 20
-    },
-    {
-      "nombre": "Miel 🍯",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 20
-    },
-    {
-      "nombre": "Nutella, Cajeta o Crema de Mani Con Banano 🍌",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 25
-    },
-    {
-      "nombre": "Nutella, Cajeta o Crema de Mani Con Fresas 🍓",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 30
-    },
-    {
-      "nombre": "Nutella, Cajeta o Crema de Mani Con Melocotón 🍑",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 30
-    },
-    {
-      "nombre": "Nutella, Cajeta o Crema de Mani Con Kiwi 🥝",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 35
-    },
-    {
-      "nombre": "Queso Crema Con Mermelada De Manzana y Canela 🍎",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 25
-    },
-    {
-      "nombre": "Queso Crema Con Mermelada De Piña y 🍍🥥",
-      "categoria": "Crepas Clasicas 😊",
-      "precio": 25
-    },
-    {
-      "nombre": "Explosión Frutal 🍌🍓🍑🥝 Nutella, Banano, Fresas, Melocotón y Kiwi",
-      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
-      "precio": 40
-    },
-    {
-      "nombre": "Lady Blue.  Nutella, Queso Crema, Queso Mozarella, Leche Condensada y Fresas 🧀 🍓",
-      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
-      "precio": 40
-    },
-    {
-      "nombre": "Dulce Tentación.  Dulce De Leche, Mermelada De Manzana y Canela, Melocotón y Leche Condensada 🍎 🍑",
-      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
-      "precio": 40
-    },
-    {
-      "nombre": "Frutos Rojos 🍓🫐🍇. Nutella, Mermelada De Fresas, Mermelada De Mora y Fresas Frescas",
-      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
-      "precio": 40
-    },
-    {
-      "nombre": "L'AMOUR.  Crema De Mani, Galletas Oreo, Melocotones y Leche Condensada 🥜 🍑",
-      "categoria": "Crepas Especiales 🚀🧑🏻‍🚀",
-      "precio": 40
-    }
+    { "nombre": "Chocolate Hershey's", "categoria": "Crepas Clasicas", "precio": 20 },
+    { "nombre": "Leche Condensada", "categoria": "Crepas Clasicas", "precio": 20 },
+    { "nombre": "Mermelada De Fresas", "categoria": "Crepas Clasicas", "precio": 20 },
+    { "nombre": "Miel", "categoria": "Crepas Clasicas", "precio": 20 },
+    { "nombre": "Nutella, Cajeta o Crema de Mani Con Banano", "categoria": "Crepas Clasicas", "precio": 25 },
+    { "nombre": "Nutella, Cajeta o Crema de Mani Con Fresas", "categoria": "Crepas Clasicas", "precio": 30 },
+    { "nombre": "Nutella, Cajeta o Crema de Mani Con Melocotón", "categoria": "Crepas Clasicas", "precio": 30 },
+    { "nombre": "Nutella, Cajeta o Crema de Mani Con Kiwi", "categoria": "Crepas Clasicas", "precio": 35 },
+    { "nombre": "Queso Crema Con Mermelada De Manzana y Canela", "categoria": "Crepas Clasicas", "precio": 25 },
+    { "nombre": "Queso Crema Con Mermelada De Piña y Coco", "categoria": "Crepas Clasicas", "precio": 25 },
+    { "nombre": "Explosión Frutal Nutella, Banano, Fresas, Melocotón y Kiwi", "categoria": "Crepas Especiales", "precio": 40 },
+    { "nombre": "Lady Blue. Nutella, Queso Crema, Queso Mozarella, Leche Condensada y Fresas", "categoria": "Crepas Especiales", "precio": 40 },
+    { "nombre": "Dulce Tentación. Dulce De Leche, Mermelada De Manzana y Canela, Melocotón y Leche Condensada", "categoria": "Crepas Especiales", "precio": 40 },
+    { "nombre": "Frutos Rojos. Nutella, Mermelada De Fresas, Mermelada De Mora y Fresas Frescas", "categoria": "Crepas Especiales", "precio": 40 },
+    { "nombre": "L'AMOUR. Crema De Mani, Galletas Oreo, Melocotones y Leche Condensada", "categoria": "Crepas Especiales", "precio": 40 },
+    { "nombre": "Café Americano", "categoria": "Bebidas Calientes", "precio": 12 },
+    { "nombre": "Café Expreso", "categoria": "Bebidas Calientes", "precio": 15 },
+    { "nombre": "Café Latte", "categoria": "Bebidas Calientes", "precio": 18 },
+    { "nombre": "Cappuccino", "categoria": "Bebidas Calientes", "precio": 18 },
+    { "nombre": "Té Verde", "categoria": "Bebidas Calientes", "precio": 10 },
+    { "nombre": "Té Negro", "categoria": "Bebidas Calientes", "precio": 10 },
+    { "nombre": "Chocolate Caliente", "categoria": "Bebidas Calientes", "precio": 16 },
+    { "nombre": "Limonada Natural", "categoria": "Bebidas Frias", "precio": 14 },
+    { "nombre": "Jugo de Naranja", "categoria": "Bebidas Frias", "precio": 15 },
+    { "nombre": "Refresco de Fresa", "categoria": "Bebidas Frias", "precio": 13 },
+    { "nombre": "Refresco de Uva", "categoria": "Bebidas Frias", "precio": 13 },
+    { "nombre": "Agua Mineral", "categoria": "Bebidas Frias", "precio": 10 },
+    { "nombre": "Brownie Clásico", "categoria": "Postres", "precio": 18 },
+    { "nombre": "Cheesecake de Fresa", "categoria": "Postres", "precio": 22 },
+    { "nombre": "Tarta de Manzana", "categoria": "Postres", "precio": 20 },
+    { "nombre": "Helado de Vainilla", "categoria": "Postres", "precio": 15 },
+    { "nombre": "Helado de Chocolate", "categoria": "Postres", "precio": 15 },
+    { "nombre": "Sandwich de Pollo", "categoria": "Sandwiches", "precio": 28 },
+    { "nombre": "Sandwich de Jamón y Queso", "categoria": "Sandwiches", "precio": 25 },
+    { "nombre": "Sandwich Vegetariano", "categoria": "Sandwiches", "precio": 26 },
+    { "nombre": "Ensalada César", "categoria": "Ensaladas", "precio": 30 },
+    { "nombre": "Ensalada de Pollo", "categoria": "Ensaladas", "precio": 32 },
+    { "nombre": "Ensalada Mixta", "categoria": "Ensaladas", "precio": 28 },
+    { "nombre": "Papas Fritas", "categoria": "Snacks", "precio": 15 },
+    { "nombre": "Aros de Cebolla", "categoria": "Snacks", "precio": 16 },
+    { "nombre": "Nuggets de Pollo", "categoria": "Snacks", "precio": 20 },
+    { "nombre": "Tostadas de Queso", "categoria": "Snacks", "precio": 18 },
+    { "nombre": "Empanadas de Pollo", "categoria": "Snacks", "precio": 20 },
+    { "nombre": "Empanadas de Queso", "categoria": "Snacks", "precio": 18 },
+    { "nombre": "Croquetas de Jamón", "categoria": "Snacks", "precio": 19 },
+    { "nombre": "Bocaditos de Pollo", "categoria": "Snacks", "precio": 17 },
+    { "nombre": "Bocaditos de Queso", "categoria": "Snacks", "precio": 17 },
+  { "nombre": "Tarta de Limón", "categoria": "Postres", "precio": 20 },
+  { "nombre": "Azúcar y Canela", "categoria": "Crepas Clasicas", "precio": 18 },
+  { "nombre": "Mantequilla y Azúcar", "categoria": "Crepas Clasicas", "precio": 18 },
+  { "nombre": "Mermelada de Mora", "categoria": "Crepas Clasicas", "precio": 20 },
+  { "nombre": "Mermelada de Durazno", "categoria": "Crepas Clasicas", "precio": 20 },
+  { "nombre": "Dulce de Leche", "categoria": "Crepas Clasicas", "precio": 22 },
+  { "nombre": "Queso Crema y Fresas", "categoria": "Crepas Clasicas", "precio": 25 },
+  { "nombre": "Queso Crema y Zarzamora", "categoria": "Crepas Clasicas", "precio": 25 },
+  { "nombre": "Plátano y Miel", "categoria": "Crepas Clasicas", "precio": 22 },
+  { "nombre": "Manzana y Canela", "categoria": "Crepas Clasicas", "precio": 22 },
+  { "nombre": "Coco y Leche Condensada", "categoria": "Crepas Clasicas", "precio": 24 },
+  { "nombre": "Fresa y Chocolate", "categoria": "Crepas Clasicas", "precio": 24 },
+  { "nombre": "Manzana Caramelizada", "categoria": "Crepas Clasicas", "precio": 26 },
+  { "nombre": "Piña y Miel", "categoria": "Crepas Clasicas", "precio": 22 },
+  { "nombre": "Durazno y Queso Crema", "categoria": "Crepas Clasicas", "precio": 27 },
+  { "nombre": "Zarzamora y Queso Crema", "categoria": "Crepas Clasicas", "precio": 27 },
+  { "nombre": "Plátano y Nutella", "categoria": "Crepas Clasicas", "precio": 26 },
+  { "nombre": "Fresa y Nutella", "categoria": "Crepas Clasicas", "precio": 28 },
+  { "nombre": "Kiwi y Nutella", "categoria": "Crepas Clasicas", "precio": 28 },
+  { "nombre": "Mango y Leche Condensada", "categoria": "Crepas Clasicas", "precio": 25 },
+  { "nombre": "Coco y Piña", "categoria": "Crepas Clasicas", "precio": 24 },
+  { "nombre": "Queso Crema y Mango", "categoria": "Crepas Clasicas", "precio": 27 },
+  { "nombre": "Queso Crema y Plátano", "categoria": "Crepas Clasicas", "precio": 27 },
+  { "nombre": "Queso Crema y Durazno", "categoria": "Crepas Clasicas", "precio": 27 },
+  { "nombre": "Queso Crema y Piña", "categoria": "Crepas Clasicas", "precio": 27 },
+  { "nombre": "Queso Crema y Kiwi", "categoria": "Crepas Clasicas", "precio": 27 },
+    { "nombre": "Muffin de Chocolate", "categoria": "Postres", "precio": 16 },
+    { "nombre": "Muffin de Vainilla", "categoria": "Postres", "precio": 16 },
+    { "nombre": "Smoothie de Fresa", "categoria": "Bebidas Frias", "precio": 18 },
+    { "nombre": "Smoothie de Mango", "categoria": "Bebidas Frias", "precio": 18 },
+    { "nombre": "Smoothie de Piña", "categoria": "Bebidas Frias", "precio": 18 }
   ]
 }

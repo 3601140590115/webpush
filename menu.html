@@ -1,769 +1,335 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menú Gourmet</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <style>
-    /* Evitar selección de texto en todo el HTML excepto inputs y textareas */
-    html, body, .app-container, .menu-header, .category-header-panel, .products-scroll-container, .category-card, .product-item, .product-price, .menu-title, .slider-controls, .slider-arrow, .fidelidad-btn-top, .scroll-top-btn, .logo-container, .empty-category, .category-header-panel i, .menu-title::after {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-    input, textarea, [contenteditable="true"] {
-      -webkit-user-select: text;
-      -moz-user-select: text;
-      -ms-user-select: text;
-      user-select: text;
-    }
-    :root {
-      --primary-color: #ff0000; /* Rojo para elementos principales */
-      --primary-dark: #b30000;  /* Rojo oscuro para hover */
-      --secondary-color: #111111; /* Fondo negro */
-      --accent-color: #ff0000; /* Rojo para acentos */
-      --text-color: #ffffff; /* Blanco para texto */
-      --light-bg: #000000; /* Fondo negro profundo */
-      --card-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
-      --hover-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
-    }
-    
-    /* Scrollbar super fino y con colores de la paleta */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-      background: var(--secondary-color);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-      border-radius: 6px;
-      min-height: 20px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary-dark);
-    }
-    ::-webkit-scrollbar-corner {
-      background: var(--secondary-color);
-    }
-    /* Firefox */
-    html, body {
-      height: 100%;
-      min-height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary-color) var(--secondary-color);
-    }
-    
-    body {
-      background: var(--secondary-color) !important;
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      color: var(--text-color) !important;
-      height: 100%;
-      min-height: 100%;
-      width: 100vw;
-      padding: 0;
-      margin: 0;
-      opacity: 1;
-      transition: opacity 0.3s ease;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    /* Layout principal */
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100vw;
-      overflow: hidden;
-    }
-    
-    /* Header fijo */
-    .menu-header {
-      background: #000 !important;
-      padding: 1rem 0;
-      box-shadow: 0 4px 12px rgba(255,0,0,0.10);
-      border-radius: 0 0 16px 16px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 3000;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      min-height: 4.5rem;
-    }
-    
-    .logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-    
-    .menu-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #fff !important;
-      margin-bottom: 0;
-      text-align: center;
-      position: relative;
-      display: inline-block;
-    }
-    
-    .menu-title::after {
-      content: '';
-      position: absolute;
-      bottom: -0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2.5rem;
-      height: 0.2rem;
-      background: var(--primary-color);
-      border-radius: 3px;
-    }
-    
-    /* Panel de categoría fijo */
-    .category-header-panel {
-      background: #000 !important;
-      padding: 0.8rem 1rem;
-      font-weight: 700;
-      color: #fff !important;
-      border-bottom: 2px dashed var(--primary-color);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(255,0,0,0.10);
-      min-height: 3.5rem;
-    }
-    
-    .category-header-panel i {
-      margin-right: 0.6rem;
-      font-size: 1.2rem;
-    }
-    
-    /* Contenedor de productos con scroll */
-    :root {
-      --header-height: 4.5rem;
-      --category-height: 3.5rem;
-      --slider-height: 3.2rem;
-    }
-    /*
-      NOTA IMPORTANTE:
-      Si el scrollbar sigue ocultándose, revisa la configuración de tu sistema operativo:
-      En Windows 10/11: Configuración > Accesibilidad > Efectos visuales > "Ocultar automáticamente las barras de desplazamiento en Windows" (debe estar DESACTIVADO).
-    */
-    .products-scroll-container {
-      flex: 1 1 auto;
-      overflow-y: scroll !important; /* SIEMPRE visible, incluso sin overflow */
-      min-height: 100px; /* fuerza la aparición del scroll */
-      padding: 1rem;
-      position: relative;
-      height: calc(100vh - var(--header-height) - var(--category-height) - var(--slider-height));
-      max-height: calc(100vh - var(--header-height) - var(--category-height) - var(--slider-height));
-      margin-top: calc(var(--header-height) + var(--category-height));
-      box-sizing: border-box;
-      scrollbar-width: thin; /* Firefox */
-      scrollbar-color: var(--primary-color) var(--secondary-color); /* Firefox */
-      scrollbar-gutter: stable;
-      -ms-overflow-style: scrollbar; /* IE/Edge */
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: auto !important;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú Gourmet</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* Scrollbar personalizado para productos */
+  .products-container::-webkit-scrollbar {
+    width: 10px;
+    background: #222;
+  }
+  .products-container::-webkit-scrollbar-thumb {
+    background: #ff003c;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 2px #ff003c;
+  }
+  .products-container::-webkit-scrollbar-thumb:hover {
+    background: #ff0055;
+    box-shadow: 0 0 12px 4px #ff0055;
+  }
+  .products-container {
+    scrollbar-color: #ff003c #222;
+    scrollbar-width: thin;
+  }
+  :root {
+    --primary-color: #ff0000;
+    --primary-dark: #b30000;
+    --secondary-color: #111;
+    --text-color: #fff;
+    --header-height: 4.5rem;
+    --category-height: 3.5rem;
+    --slider-height: 3.2rem;
+  }
 
-    .products-scroll-container::-webkit-scrollbar {
-      width: 0.7em;
-      background: var(--secondary-color);
-      display: block !important;
-      -webkit-appearance: none;
-      opacity: 1 !important;
-      pointer-events: auto;
-      transition: none;
-    }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    overflow: hidden; /* nada de scroll */
+    font-size: 89%;
+  }
 
-    .products-scroll-container::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-      border-radius: 1em;
-      min-height: 2em;
-      opacity: 1;
-      transition: none;
-    }
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 581px;
+    margin: 0 auto;
+  }
 
-    .products-scroll-container::-webkit-scrollbar-thumb:hover {
-      background: var(--primary-dark);
-    }
+  /* Header */
+  .menu-header {
+    height: var(--header-height);
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+  }
+  .menu-title {
+    font-size: 1.31rem;
+    font-weight: 700;
+    position: relative;
+  }
+  .menu-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2.5rem;
+    height: 0.2rem;
+    background: var(--primary-color);
+    border-radius: 3px;
+  }
+  .fidelidad-btn-top {
+  position: absolute;
+  right: 1rem;
+  width: 2.19rem;
+  height: 2.19rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.09rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  }
+  .fidelidad-btn-top:hover {
+  background: var(--primary-dark);
+  /* No scale, mantener tamaño fijo */
+  }
 
-    .products-scroll-container::-webkit-scrollbar-track {
-      background: var(--secondary-color);
-    }
+  /* Category */
+  .category-header-panel {
+    height: var(--category-height);
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border-bottom: 2px dashed var(--primary-color);
+    flex-shrink: 0;
+    font-size: 0.81rem;
+  }
 
-    .products-scroll-container::-webkit-scrollbar-corner {
-      background: var(--secondary-color);
-    }
-    .menu-header {
-      /* ...existing code... */
-      height: var(--header-height);
-      min-height: var(--header-height);
-      max-height: var(--header-height);
-    }
-    .category-header-panel {
-      /* ...existing code... */
-      height: var(--category-height);
-      min-height: var(--category-height);
-      max-height: var(--category-height);
-      top: var(--header-height) !important;
-    }
-    
-    /* Estilos para las tarjetas de categoría */
-    .category-card {
-      border-radius: 1rem;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-      box-shadow: var(--card-shadow);
-      transition: all 0.4s ease;
-      background: #111;
-      border: 1px solid var(--primary-color);
-      color: #fff;
-    }
-    
-    .category-card:hover {
-      transform: translateY(-0.3rem);
-      box-shadow: var(--hover-shadow);
-    }
-    
-    .product-item {
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--primary-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s ease;
-      position: relative;
-      color: #fff;
-    }
-    
-    .product-item:last-child {
-      border-bottom: none;
-    }
-    
-    .product-item:hover {
-      background-color: #222;
-      padding-left: 1.5rem;
-    }
-    
-    .product-item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 0.25rem;
-      background: var(--primary-color);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .product-item:hover::before {
-      opacity: 1;
-    }
-    
-    .product-price {
-      color: #fff;
-      font-weight: 700;
-      white-space: nowrap;
-      background: var(--primary-color);
-      padding: 0.25rem 0.6rem;
-      border-radius: 1.25rem;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-    }
-    
-    .product-item:hover .product-price {
-      background: var(--primary-dark);
-      transform: scale(1.05);
-    }
-    
-    /* Controles de slider */
-    .slider-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.7rem;
-      background: #000 !important;
-      padding: 0.5rem 0.2rem 0.7rem 0.2rem;
-      box-shadow: 0 -2px 12px rgba(255,0,0,0.10);
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
-      z-index: 1200;
-      min-height: 3.2rem;
-      position: sticky;
-      bottom: 0;
-    }
-    
-    .slider-arrow {
-      min-width: 2.2rem;
-      min-height: 2.2rem;
-      width: 2.2rem;
-      height: 2.2rem;
-      border-radius: 50%;
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.15rem;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-      box-shadow: 0 2px 6px rgba(255,0,0,0.13);
-      outline: none;
-      user-select: none;
-      touch-action: manipulation;
-      margin: 0 0.1rem;
-    }
-    .slider-arrow i {
-      font-size: 1.1em;
-      pointer-events: none;
-      display: block;
-    }
-    .slider-arrow:active, .slider-arrow:focus {
-      background: var(--primary-dark);
-      box-shadow: 0 2px 10px rgba(255,0,0,0.18);
-      transform: scale(1.08);
-    }
-    
-    .slider-arrow:hover:not(:disabled) {
-      background: var(--primary-dark);
-      transform: scale(1.05);
-    }
-    
-    .slider-arrow:disabled {
-      background: #333;
-      color: #fff;
-      cursor: not-allowed;
-      opacity: 0.5;
-      box-shadow: none;
-      border: none;
-    }
-    
-    /* Estados de carga y vacío */
-    .loading-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 0;
-    }
-    
-    .loading-spinner {
-      width: 3rem;
-      height: 3rem;
-      border: 0.25rem solid rgba(196, 143, 58, 0.2);
-      border-top: 0.25rem solid var(--primary-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 1rem;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .empty-category {
-      padding: 1.25rem 1rem;
-      color: #A89F96;
-      text-align: center;
-      font-style: italic;
-    }
-    
-    .empty-category i {
-      font-size: 1.5rem;
-      margin-bottom: 0.6rem;
-      display: block;
-      color: #D3C9BC;
-    }
-    
-    /* Animaciones personalizadas */
-    @keyframes fadeInUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(1.25rem); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
-    }
-    
-    .animate-item {
-      animation: fadeInUp 0.5s ease forwards;
-    }
-    
-    /* Botón de scroll to top */
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 1.25rem;
-      right: 1.25rem;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      background: var(--primary-color);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
-      z-index: 100;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      border: none;
-    }
-    
-    .scroll-top-btn.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .scroll-top-btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-0.2rem);
-    }
-    
-    /* Botón de fidelidad */
-    .fidelidad-btn-top {
-      position: fixed;
-      top: 1.1rem;
-      right: 1.1rem;
-      width: 3.25rem;
-      height: 3.25rem;
-      border-radius: 50%;
-      background: var(--primary-color);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 18px rgba(255,0,0,0.25);
-      font-size: 1.7rem;
-      z-index: 9999;
-      border: none;
-      transition: background 0.3s, transform 0.2s;
-      text-decoration: none;
-      opacity: 0.97;
-    }
-    
-    .fidelidad-btn-top:hover {
-      background: var(--primary-dark);
-      color: #fff;
-      transform: scale(1.08) rotate(-6deg);
-      box-shadow: 0 10px 24px rgba(255,0,0,0.35);
-    }
-    
-    /* Mejoras para móviles */
-    @media (max-width: 768px) {
-      .menu-title {
-        font-size: 1.5rem;
-      }
-      .menu-title::after {
-        width: 2rem;
-        height: 0.15rem;
-        bottom: -0.4rem;
-      }
-      .category-header-panel {
-        padding: 0.7rem 0.8rem;
-        font-size: 1.1rem;
-        min-height: 3.2rem;
-      }
-      .product-item {
-        padding: 0.9rem 1rem;
-        font-size: 0.98rem;
-      }
-      .slider-arrow {
-        min-width: 2.2rem;
-        min-height: 2.2rem;
-        width: 2.2rem;
-        height: 2.2rem;
-        font-size: 1.15rem;
-      }
-      .slider-arrow i {
-        font-size: 1.1em;
-      }
-      .fidelidad-btn-top {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.2rem;
-        top: 0.8rem;
-        right: 0.8rem;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .menu-title {
-        font-size: 1.3rem;
-      }
-      .category-header-panel {
-        padding: 0.6rem 0.7rem;
-        font-size: 1.1rem;
-        min-height: 3rem;
-      }
-      .category-header-panel i {
-        font-size: 1.2rem;
-      }
-      .product-item {
-        padding: 0.8rem 0.9rem;
-        font-size: 0.95rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-      }
-      .product-price {
-        align-self: flex-end;
-        font-size: 0.9rem;
-      }
-      .slider-arrow {
-        min-width: 2.2rem;
-        min-height: 2.2rem;
-        width: 2.2rem;
-        height: 2.2rem;
-        font-size: 1.15rem;
-      }
-      .slider-arrow i {
-        font-size: 1.1em;
-      }
-      .scroll-top-btn {
-        bottom: 1rem;
-        right: 1rem;
-        width: 2.8rem;
-        height: 2.8rem;
-      }
-      .products-scroll-container {
-        padding: 0.8rem;
-      }
-    }
-  </style>
+  /* Products container */
+  .products-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* permite scroll vertical */
+    padding: 0.5rem 1rem;
+  }
+
+  .product-item {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.37rem 0.55rem;
+    border-bottom: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    background: #111;
+    margin-bottom: 0.3rem;
+    align-items: center;
+    font-size: 0.81rem;
+  }
+
+  .product-price {
+    background: #000;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.065rem 0.42rem;
+    border-radius: 0.6rem;
+    font-weight: 700;
+    font-size: 0.72rem;
+    min-width: 3.23rem;
+    min-height: 1.54rem;
+    max-width: 3.23rem;
+    max-height: 1.54rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .product-item:hover .product-price {
+    background: #111;
+    color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    /* No scale, mantener tamaño fijo */
+  }
+
+  .product-item > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: 0.5rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Slider */
+  .slider-controls {
+    height: var(--slider-height);
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .slider-arrow {
+  width: 1.30rem;
+  height: 1.30rem;
+  border-radius: 50%;
+  background: #000;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid var(--primary-color);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  box-shadow: none;
+  font-size: 0.82rem;
+  }
+
+  .slider-arrow:disabled {
+  background: #222;
+  border-color: #444;
+  color: #444;
+  cursor: not-allowed;
+  opacity: 0.5;
+  }
+
+  .empty-category {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #aaa;
+    color: #fff;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+</style>
 </head>
 <body>
-  <div class="app-container">
-    <!-- Header fijo -->
-    <div class="menu-header">
-      <div class="logo-container">
-        <h1 class="menu-title">Menú</h1>
-      </div>
-      <!-- Botón de fidelidad -->
-      <a href="index.html" class="fidelidad-btn-top animate__animated animate__pulse" id="fidelidadBtn" title="Regresar a la Tarjeta de Fidelidad">
-        <i class="fas fa-id-card"></i>
-      </a>
-    </div>
-    <!-- Panel de categoría fijo -->
-    <div class="category-header-panel" id="categoryHeader" style="position:fixed;top:4.5rem;left:0;width:100vw;z-index:2500;">
-      <span id="currentCategory">Cargando...</span>
-    </div>
-    <!-- Contenedor de productos con scroll -->
-  <div class="products-scroll-container" id="productsContainer">
-      <div class="categorias-slider" id="categoriasSlider"></div>
-    </div>
-    <!-- Controles de slider -->
-    <div class="slider-controls">
-      <button class="slider-arrow" id="sliderPrev"><i class="fas fa-chevron-left"></i></button>
-      <button class="slider-arrow" id="sliderNext"><i class="fas fa-chevron-right"></i></button>
-    </div>
+<div class="app-container">
+  <div class="menu-header">
+    <h1 class="menu-title">Menú</h1>
+    <div class="fidelidad-btn-top"><i class="fas fa-id-card"></i></div>
   </div>
+  <div class="category-header-panel" id="categoryHeader">Cargando...</div>
+  <div class="products-container" id="productsContainer"></div>
+  <div class="slider-controls" id="sliderControls"></div>
+</div>
 
+<script>
+  async function renderMenuCliente() {
+    const productsContainer = document.getElementById('productsContainer');
+    const sliderControls = document.getElementById('sliderControls');
+    const categoryHeader = document.getElementById('categoryHeader');
 
+    try {
+      // Simulación de API
+      const data = await fetch('/menu_data').then(r=>r.json());
+      const categorias = data.categorias || [];
+      const productos = data.productos || [];
 
-  <script>
-    // Efecto animado para el botón de fidelidad
-    const fidelidadBtn = document.getElementById('fidelidadBtn');
-    if (fidelidadBtn) {
-      fidelidadBtn.addEventListener('mouseenter', () => {
-        fidelidadBtn.classList.add('animate__heartBeat');
-      });
-      fidelidadBtn.addEventListener('mouseleave', () => {
-        fidelidadBtn.classList.remove('animate__heartBeat');
-      });
-    }
-    
-    // Leer productos y categorías dinámicamente desde menu_data.json
-    async function renderMenuCliente() {
-      const slider = document.getElementById('categoriasSlider');
-      const categoryHeader = document.getElementById('currentCategory');
-      slider.innerHTML = '';
-      
-      try {
-        const res = await fetch('/menu_data');
-        const data = await res.json();
-        const categorias = data.categorias || [];
-        const productos = data.productos || [];
-        
+      if (!categorias.length) {
+        productsContainer.innerHTML = '<div class="empty-category">No hay categorías</div>';
+        return;
+      }
+
+      const categoryIcons = {
+        "Entradas": "fa-leaf",
+        "Platos Principales": "fa-utensils",
+        "Postres": "fa-ice-cream",
+        "Bebidas": "fa-glass-martini",
+        "Especiales": "fa-star"
+      };
+
+  // Ahora: solo navegación por categoría, sin paginación interna
+  let categoriaActual = 0;
+
+      function renderPagina() {
+        productsContainer.innerHTML = '';
         if (!categorias.length) {
-          slider.innerHTML = '<div class="empty-category"><i class="fas fa-exclamation-circle"></i>No hay categorías disponibles.</div>';
+          productsContainer.innerHTML = '<div class="empty-category">No hay productos</div>';
           return;
         }
-        
-        // Iconos para diferentes categorías
-        const categoryIcons = {
-          "Entradas": "fa-leaf",
-          "Platos Principales": "fa-utensils",
-          "Postres": "fa-ice-cream",
-          "Bebidas": "fa-glass-martini",
-          "Especiales": "fa-star",
-          "default": "fa-circle"
-        };
-        
-        let hayProductos = false;
-        let delay = 0;
-        
-        categorias.forEach((cat, idx) => {
-          const categoryDiv = document.createElement('div');
-          categoryDiv.className = 'category-card';
-          categoryDiv.innerHTML = `
-            <div class="products-container"></div>
-          `;
+        const cat = categorias[categoriaActual];
+        const iconClass = categoryIcons[cat] || '';
 
-          const productsContainer = categoryDiv.querySelector('.products-container');
-          // Ordenar productos por precio ascendente
-          const productosCat = productos.filter(p => p.categoria === cat).sort((a, b) => a.precio - b.precio);
-
-          if (productosCat.length === 0) {
-            productsContainer.innerHTML = '<div class="empty-category"><i class="fas fa-box-open"></i>No hay productos en esta categoría</div>';
-          } else {
-            hayProductos = true;
-            productosCat.forEach((prod, index) => {
-              const item = document.createElement('div');
-              item.className = 'product-item animate-item';
-              item.style.animationDelay = `${delay + (index * 50)}ms`;
-              item.innerHTML = `
-                <span>${prod.nombre}</span>
-                <span class='product-price'>$${prod.precio.toFixed(2)}</span>
-              `;
-              productsContainer.appendChild(item);
-            });
-            delay += 100;
+        // Botones de categoría
+        const prevCatBtn = document.createElement('button');
+        prevCatBtn.className = 'slider-arrow';
+        prevCatBtn.style.marginRight = '0.5rem';
+        prevCatBtn.innerHTML = '<i class="fas fa-angle-double-left"></i>';
+        prevCatBtn.disabled = categoriaActual === 0;
+        prevCatBtn.onclick = () => {
+          if (categoriaActual > 0) {
+            categoriaActual--;
+            renderPagina();
           }
+        };
 
-          slider.appendChild(categoryDiv);
-        });
-        
-        // Slider navigation
-        let currentSlide = 0;
-        const slides = Array.from(document.querySelectorAll('.category-card'));
-        const categoryNames = categorias;
-        
-        function updateSlider() {
-          // Ocultar todas las slides
-          slides.forEach((slide, idx) => {
-            slide.style.display = idx === currentSlide ? 'block' : 'none';
+        const nextCatBtn = document.createElement('button');
+        nextCatBtn.className = 'slider-arrow';
+        nextCatBtn.style.marginLeft = '0.5rem';
+        nextCatBtn.innerHTML = '<i class="fas fa-angle-double-right"></i>';
+        nextCatBtn.disabled = categoriaActual >= (categorias.length - 1);
+        nextCatBtn.onclick = () => {
+          if (categoriaActual < categorias.length - 1) {
+            categoriaActual++;
+            renderPagina();
+          }
+        };
+
+        // Renderizar header de categoría con botones
+        categoryHeader.innerHTML = '';
+        categoryHeader.appendChild(prevCatBtn);
+        const catTitle = document.createElement('span');
+        catTitle.innerHTML = (iconClass ? `<i class="fas ${iconClass}"></i> ` : '') + cat;
+        categoryHeader.appendChild(catTitle);
+        categoryHeader.appendChild(nextCatBtn);
+
+        // Mostrar todos los productos de la categoría
+        const prods = productos.filter(p => p.categoria === cat);
+        if (!prods.length) {
+          productsContainer.innerHTML = '<div class="empty-category">No hay productos en esta categoría</div>';
+        } else {
+          prods.forEach(prod => {
+            const item = document.createElement('div');
+            item.className = 'product-item';
+            item.innerHTML = `<span>${prod.nombre}</span><span class='product-price'>$${prod.precio.toFixed(2)}</span>`;
+            productsContainer.appendChild(item);
           });
-          
-          // Actualizar el header de categoría
-          if (categoryNames[currentSlide]) {
-            const iconClass = categoryIcons[categoryNames[currentSlide]] || categoryIcons.default;
-            categoryHeader.innerHTML = `<i class="fas ${iconClass}"></i> ${categoryNames[currentSlide]}`;
-          }
-          
-          // Actualizar estado de los botones
-          document.getElementById('sliderPrev').disabled = currentSlide === 0;
-          document.getElementById('sliderNext').disabled = currentSlide === slides.length - 1;
         }
-        
-        // Configurar eventos de navegación
-        document.getElementById('sliderPrev').onclick = () => {
-          if (currentSlide > 0) {
-            currentSlide--;
-            updateSlider();
-          }
-        };
-        document.getElementById('sliderNext').onclick = () => {
-          if (currentSlide < slides.length - 1) {
-            currentSlide++;
-            updateSlider();
-          }
-        };
 
-        // Swipe horizontal en móviles para cambiar de categoría una por una
-        let touchStartX = null;
-        let touchEndX = null;
-        const minSwipeDistance = 50; // px
-        slider.addEventListener('touchstart', function(e) {
-          if (e.touches.length === 1) {
-            touchStartX = e.touches[0].clientX;
-          }
-        });
-        slider.addEventListener('touchmove', function(e) {
-          if (e.touches.length === 1) {
-            touchEndX = e.touches[0].clientX;
-          }
-        });
-        slider.addEventListener('touchend', function(e) {
-          if (touchStartX !== null && touchEndX !== null) {
-            const diffX = touchEndX - touchStartX;
-            if (Math.abs(diffX) > minSwipeDistance) {
-              if (diffX < 0 && currentSlide < slides.length - 1) {
-                // Swipe izquierda: siguiente categoría
-                currentSlide++;
-                updateSlider();
-              } else if (diffX > 0 && currentSlide > 0) {
-                // Swipe derecha: categoría anterior
-                currentSlide--;
-                updateSlider();
-              }
-            }
-          }
-          touchStartX = null;
-          touchEndX = null;
-        });
-        
-        // Inicializar slider
-        updateSlider();
-        
-      } catch (error) {
-        console.error('Error cargando el menú:', error);
-        slider.innerHTML = '<div class="empty-category"><i class="fas fa-exclamation-triangle"></i>Error al cargar el menú</div>';
+        // Sin controles de página, solo info de categoría
+        sliderControls.innerHTML = '';
+        const info = document.createElement('span');
+        info.style.color = '#fff';
+        info.textContent = `Categoría ${categoriaActual + 1} de ${categorias.length}`;
+        sliderControls.appendChild(info);
       }
+
+      renderPagina();
+      window.addEventListener('resize', renderPagina);
+    } catch(err) {
+      console.error(err);
+      productsContainer.innerHTML = '<div class="empty-category">Error al cargar el menú</div>';
     }
-    
-    // Cargar el menú cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', function() {
-      document.body.style.opacity = '1';
-      renderMenuCliente();
-      
-      // Configurar botón de scroll to top
-      const scrollTopBtn = document.getElementById('scrollTopBtn');
-      const productsContainer = document.getElementById('productsContainer');
-      
-      if (scrollTopBtn && productsContainer) {
-        function checkScroll() {
-          if (productsContainer.scrollTop > 300) {
-            scrollTopBtn.classList.add('visible');
-          } else {
-            scrollTopBtn.classList.remove('visible');
-          }
-        }
-        
-        productsContainer.addEventListener('scroll', checkScroll);
-        checkScroll();
-        
-        scrollTopBtn.addEventListener('click', () => {
-          productsContainer.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        });
-      }
-    });
-  </script>
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>renderMenuCliente());
+</script>
 </body>
 </html>

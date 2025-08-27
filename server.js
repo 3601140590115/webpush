@@ -1,30 +1,9 @@
 const path = require('path');
 const fs = require('fs');
-
-// Datos en memoria (no persistente)
-// Cargar datos desde data.json si existe
-let datos;
-const DATA_FILE = path.join(__dirname, 'data.json');
-function cargarDatos() {
-  try {
-    const raw = fs.readFileSync(DATA_FILE, 'utf8');
-    datos = JSON.parse(raw);
-  } catch {
-    datos = { usuarios: [], premios: [], admin: { usuario: 'REBL', password: 'Corp' } };
-  }
-}
-function guardarDatos() {
-  try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(datos, null, 2), 'utf8');
-  } catch (err) {
-    console.error('Error guardando datos:', err);
-  }
-}
-cargarDatos();
-
 const express = require('express');
 const webpush = require('web-push');
 const WebSocket = require('ws');
+const { Pool } = require('pg');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
@@ -341,6 +320,38 @@ app.post('/login', (req, res) => {
 app.post('/validate', (req, res) => {
   const { token } = req.body;
   res.json({ valid: validarToken(token) });
+});
+
+// Configura tu conexión PostgreSQL
+const pool = new Pool({
+  // Cambia estos valores según tu configuración
+
+    'host': 'localhost',
+    'database': 'data',
+    'user': 'postgres',
+    'password': 'REBLcorp',
+    'port': '5432'
+ 
+});
+
+// Endpoint para obtener los items agrupados
+app.get('/items', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM obtener_items_agrupados();');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener los items', details: err.message });
+  }
+});
+
+// También acepta POST para /items
+app.post('/items', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM obtener_items_agrupados();');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener los items', details: err.message });
+  }
 });
 
 server.listen(3000, () => {
