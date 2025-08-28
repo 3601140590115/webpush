@@ -6,7 +6,17 @@
     "Bebidas",
     "Postres",
     "Promociones",
-    "Toppings"
+    "Toppings",
+    "Desayunos",
+    "Sandwiches",
+    "Ensaladas",
+    "Aguas Frescas",
+    "Jugos Naturales",
+    "Helados Especiales",
+    "Extras",
+    "Combos",
+    "Vegetarianos",
+    "Panadería"
   ],
   "productos": [
     {
@@ -14,200 +24,476 @@
       "categoria": "Crepas Clasicas",
       "detalle": "Hershey's, masa de crepa, leche, azúcar",
       "precio": 20,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Nutella con Banano",
       "categoria": "Crepas Clasicas",
       "detalle": "Nutella, banano, masa de crepa",
       "precio": 25,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Cajeta con Banano",
       "categoria": "Crepas Clasicas",
       "detalle": "Cajeta, banano, masa de crepa",
       "precio": 25,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Crema de Maní con Banano",
       "categoria": "Crepas Clasicas",
       "detalle": "Crema de maní, banano, masa de crepa",
       "precio": 25,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Explosión Frutal",
       "categoria": "Crepas Especiales",
       "detalle": "Nutella, banano, fresas, melocotón, kiwi, masa de crepa",
       "precio": 40,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Lady Blue",
       "categoria": "Crepas Especiales",
       "detalle": "Nutella, queso crema, queso mozarella, leche condensada, fresas",
       "precio": 40,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Nutella Suprema",
       "categoria": "Crepas Especiales",
       "detalle": "Nutella extra, crema batida, almendras tostadas, masa de crepa",
       "precio": 45,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Queso y Jamón",
       "categoria": "Crepas Clasicas",
       "detalle": "Jamón, queso mozzarella, salsa ligera, masa de crepa",
       "precio": 30,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Dulce de Leche Tropical",
       "categoria": "Crepas Especiales",
       "detalle": "Dulce de leche, piña caramelizada, coco rallado, masa de crepa",
       "precio": 42,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Waffle Clásico",
       "categoria": "Waffles",
       "detalle": "Waffle recién hecho, mantequilla y azúcar glass",
       "precio": 30,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Waffle Nutella",
       "categoria": "Waffles",
       "detalle": "Waffle, Nutella, rodajas de banano, crema batida",
       "precio": 45,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Waffle Frutas",
       "categoria": "Waffles",
       "detalle": "Waffle, mezcla de frutas frescas, syrup de maple",
       "precio": 48,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Chocolate Caliente",
       "categoria": "Bebidas",
       "detalle": "Chocolate espeso, leche caliente, crema opcional",
       "precio": 18,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Café Latte",
       "categoria": "Bebidas",
       "detalle": "Café espresso, leche vaporizada, espuma ligera",
       "precio": 15,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Limonada Natural",
       "categoria": "Bebidas",
       "detalle": "Jugo de limón natural, agua fría, azúcar al gusto",
       "precio": 12,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Smoothie Energético",
       "categoria": "Bebidas",
       "detalle": "Banano, fresa, avena, leche, toque de miel",
       "precio": 28,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Helado de Vainilla",
       "categoria": "Postres",
       "detalle": "Copa de helado de vainilla, sirope de chocolate opcional",
       "precio": 20,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Brownie con Helado",
       "categoria": "Postres",
       "detalle": "Brownie caliente, bola de helado de vainilla, sirope",
       "precio": 35,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Promo 2x1 Crepas",
       "categoria": "Promociones",
       "detalle": "Obtén 2 crepas clásicas por el precio de 1 (válido en local)",
       "precio": 40,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     },
     {
       "nombre": "Topping Extra Nutella",
       "categoria": "Toppings",
       "detalle": "Porción extra de Nutella para añadir a tu crepa o waffle",
       "precio": 5,
-      "imagen": {
-        "ruta": "imagenes/categorias/default/default.png",
-        "contenedor": "4:3"
-      }
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Desayuno Energético",
+      "categoria": "Desayunos",
+      "detalle": "Huevos revueltos, tostadas integrales, jugo de naranja",
+      "precio": 55,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Avena con Frutas",
+      "categoria": "Desayunos",
+      "detalle": "Avena caliente, miel, mezcla de frutas",
+      "precio": 30,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Tostada Francesa",
+      "categoria": "Desayunos",
+      "detalle": "Tostada francesa, sirope de maple, frutas",
+      "precio": 45,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Bagel con Queso Crema",
+      "categoria": "Panadería",
+      "detalle": "Bagel recién horneado con queso crema",
+      "precio": 20,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Croissant Mantequilla",
+      "categoria": "Panadería",
+      "detalle": "Croissant hojaldrado, mantequilla fresca",
+      "precio": 18,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Sándwich Club",
+      "categoria": "Sandwiches",
+      "detalle": "Pollo, lechuga, tomate, tocino, pan artesanal",
+      "precio": 60,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Sandwich Vegetal",
+      "categoria": "Sandwiches",
+      "detalle": "Pan integral, aguacate, queso, vegetales frescos",
+      "precio": 45,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Ensalada César",
+      "categoria": "Ensaladas",
+      "detalle": "Lechuga, pollo a la plancha, croutons, aderezo César",
+      "precio": 50,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Ensalada Mediterránea",
+      "categoria": "Ensaladas",
+      "detalle": "Mix de lechugas, queso feta, aceitunas, tomate",
+      "precio": 55,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Agua de Jamaica",
+      "categoria": "Aguas Frescas",
+      "detalle": "Hibisco infusionado con azúcar al gusto",
+      "precio": 12,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Agua de Horchata",
+      "categoria": "Aguas Frescas",
+      "detalle": "Arroz, canela y leche vegetal opcional",
+      "precio": 12,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Jugo Verde",
+      "categoria": "Jugos Naturales",
+      "detalle": "Kale, manzana, pepino, limón",
+      "precio": 28,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Jugo de Naranja Natural",
+      "categoria": "Jugos Naturales",
+      "detalle": "Naranjas exprimidas al momento",
+      "precio": 18,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Helado de Chocolate Gourmet",
+      "categoria": "Helados Especiales",
+      "detalle": "Helado cremoso con chocolate belga",
+      "precio": 30,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Helado Vegano de Mango",
+      "categoria": "Helados Especiales",
+      "detalle": "Base de coco, puré de mango natural",
+      "precio": 28,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Extra Crema Batida",
+      "categoria": "Extras",
+      "detalle": "Porción extra de crema batida",
+      "precio": 6,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Extra Frutas",
+      "categoria": "Extras",
+      "detalle": "Porción de frutas frescas extra",
+      "precio": 10,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Combo Desayuno + Jugo",
+      "categoria": "Combos",
+      "detalle": "Tostadas + huevo + jugo natural",
+      "precio": 75,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Combo Crepa + Bebida",
+      "categoria": "Combos",
+      "detalle": "Cualquier crepa clásica + bebida pequeña",
+      "precio": 50,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Vegetariana",
+      "categoria": "Vegetarianos",
+      "detalle": "Espinaca, champiñones, queso panela",
+      "precio": 33,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Waffle Vegano",
+      "categoria": "Vegetarianos",
+      "detalle": "Waffle sin huevo, sirope de agave, frutas",
+      "precio": 50,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Topping Caramelo Salado",
+      "categoria": "Toppings",
+      "detalle": "Salsa de caramelo con toque de sal marina",
+      "precio": 6,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Topping Frutos Secos",
+      "categoria": "Toppings",
+      "detalle": "Mezcla de nuez, almendra y pistacho",
+      "precio": 8,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa de Pollo BBQ",
+      "categoria": "Crepas Especiales",
+      "detalle": "Pollo desmenuzado con salsa BBQ, cebolla y queso",
+      "precio": 48,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Mediterránea",
+      "categoria": "Crepas Especiales",
+      "detalle": "Tomate seco, aceitunas, queso feta, rúcula",
+      "precio": 44,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Brownie Vegano",
+      "categoria": "Postres",
+      "detalle": "Brownie sin lácteos, con trozos de chocolate",
+      "precio": 32,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Mini Donas",
+      "categoria": "Panadería",
+      "detalle": "Pack de 6 mini donas glaseadas",
+      "precio": 22,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Wrap de Pollo",
+      "categoria": "Sandwiches",
+      "detalle": "Tortilla, pollo, lechuga, salsa de yogur",
+      "precio": 48,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Sopa del Día",
+      "categoria": "Desayunos",
+      "detalle": "Sopa casera según temporada",
+      "precio": 28,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Muffin Arándanos",
+      "categoria": "Panadería",
+      "detalle": "Muffin recién horneado con arándanos",
+      "precio": 18,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Matcha Latte",
+      "categoria": "Bebidas",
+      "detalle": "Té matcha batido con leche caliente",
+      "precio": 30,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Frappé de Café",
+      "categoria": "Bebidas",
+      "detalle": "Café, hielo, leche, toque de crema",
+      "precio": 35,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Tostada con Aguacate",
+      "categoria": "Desayunos",
+      "detalle": "Pan artesanal, aguacate, sal y limón",
+      "precio": 40,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Azúcar y Limón",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Azúcar glas y unas gotas de limón en masa de crepa",
+      "precio": 15,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Miel y Nueces",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Miel natural y nueces picadas",
+      "precio": 28,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Fresa con Crema",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Fresas frescas y crema batida",
+      "precio": 30,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Dulce de Leche",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Dulce de leche esparcido sobre la crepa",
+      "precio": 28,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Arequipe y Coco",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Arequipe tradicional con coco rallado",
+      "precio": 27,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Plátano con Canela",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Rodajas de plátano y toque de canela",
+      "precio": 25,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Manzana Caramelizada",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Manzana salteada en mantequilla y azúcar caramelizada",
+      "precio": 32,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Queso y Mermelada",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Queso crema suave con mermelada de la casa",
+      "precio": 30,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Nutella Sencilla",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Nutella untada sobre una crepa caliente",
+      "precio": 26,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Cajeta Clásica",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Cajeta tradicional sobre crepa",
+      "precio": 25,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Mantequilla y Azúcar",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Mantequilla derretida y una capa de azúcar",
+      "precio": 14,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Mermelada de Fresa",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Mermelada casera de fresa",
+      "precio": 20,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Chocolate Clásico",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Chocolate derretido sobre crepa caliente",
+      "precio": 22,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Dulce de Leche y Nuez",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Dulce de leche con nueces troceadas",
+      "precio": 30,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
+    },
+    {
+      "nombre": "Crepa Triple Fruta",
+      "categoria": "Crepas Clasicas",
+      "detalle": "Mix de fresa, banano, mango, kiwi, piña, yogurt, almendras, nueces, cerezas, chocolate rallado y bola de helado",
+      "precio": 35,
+      "imagen": { "ruta": "imagenes/categorias/default/default.png", "contenedor": "4:3" }
     }
   ]
 }
